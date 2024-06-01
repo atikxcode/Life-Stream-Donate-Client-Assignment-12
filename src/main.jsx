@@ -12,6 +12,8 @@ import Blog from './Pages/Blog/Blog';
 import AuthProvider from './Pages/Provider/AuthProvider';
 import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
+import NavBar from './Pages/NavBar/NavBar';
+import Home from './Pages/Home/Home';
 
 
 const router = createBrowserRouter([
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
     element: <Root></Root>,
     errorElement: <ErrorPage></ErrorPage>,
     children: [
+      {
+        path: '/',
+        element: <Home></Home>
+      },
+      {
+        path: '/navbar',
+        element: <NavBar></NavBar>
+      },
       {
         path: 'donationrequest',
         element: <DonationRequest></DonationRequest>

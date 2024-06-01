@@ -1,13 +1,14 @@
 import Aos from 'aos';
 import 'aos/dist/aos.css'
-import {  useEffect, useState } from 'react';
+import {  useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { Helmet } from 'react-helmet';
 import bg from '../../assets/building-business-city-construction-geometry.jpg'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import useAuth from '../../Hooks/useAuth';
+import { AuthContext } from '../Provider/AuthProvider';
+
 
 const Register = () => {
 
@@ -32,7 +33,7 @@ const Register = () => {
 
   const [showPassword, setShowPassword] = useState(false)
 
-  const {createUser, updateUser} = useAuth;
+  const {createUser, updateUser} = useContext(AuthContext);
 
 
   const [name, setName] = useState('');

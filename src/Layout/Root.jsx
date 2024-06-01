@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 const Root = () => {
   return (
     <div>
-      <NavBar></NavBar>
+     <NavBar></NavBar>
       <Outlet></Outlet>
     </div>
   );

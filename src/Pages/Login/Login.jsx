@@ -1,11 +1,12 @@
 import Aos from 'aos';
 import 'aos/dist/aos.css'
-import  { useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FaEye, FaEyeSlash, FaGithub } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import useAuth from '../../Hooks/useAuth';
+import { AuthContext } from '../Provider/AuthProvider';
+
 
 const Login = () => {
 
@@ -21,7 +22,7 @@ const Login = () => {
   const notify = () => toast("Successfully Logged In");
   const notify1 = () => toast("Wrong Email Or Password");
 
-  const {signIn, handleGoogleSignIn, handleGithubSignIn} = useAuth;
+  const {signIn, handleGoogleSignIn, handleGithubSignIn} = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
