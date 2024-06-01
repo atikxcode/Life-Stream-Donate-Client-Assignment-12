@@ -14,6 +14,19 @@ import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import NavBar from './Pages/NavBar/NavBar';
 import Home from './Pages/Home/Home';
+import Dashboard from './Layout/Dashboard/Dashboard';
+import Profile from './DashBoard/Profile/Profile'
+import DashBoardHome from './DashBoard/DashBoardHome/DashBoardHome';
+import MyDonation from './DashBoard/MyDonation/MyDonation';
+import CreateDonationRequest from './DashBoard/CreateDonationRequest/CreateDonationRequest';
+import AllUsers from './DashBoard/Admin/AllUsers/AllUsers';
+import AllUserDonationRequest from './DashBoard/Admin/AllUserDonationRequest/AllUserDonationRequest';
+import ContentManagement from './DashBoard/Admin/ContentManagement/ContentManagement';
+import AddBlog from './DashBoard/Admin/AddBlog/AddBlog';
+
+
+
+
 
 
 const router = createBrowserRouter([
@@ -48,6 +61,49 @@ const router = createBrowserRouter([
       }
     ]
   },
+
+  {
+    path: 'dashboard',
+    element: <Dashboard></Dashboard>,
+    children: [
+      // Donor Route
+      {
+        path: 'dashhome',
+        element: <DashBoardHome></DashBoardHome> 
+      },
+      {
+        path: 'profile',
+        element: <Profile></Profile>
+      },
+      {
+        path: 'mydonation',
+        element: <MyDonation></MyDonation>
+      },
+      {
+        path: 'createdonationrequest',
+        element: <CreateDonationRequest></CreateDonationRequest>
+      },
+
+      // Admin only Route
+      {
+        path: 'allusers',
+        element: <AllUsers></AllUsers>
+      },
+      {
+        path: 'alldonation',
+        element: <AllUserDonationRequest></AllUserDonationRequest>
+      },
+      {
+        path: 'contentmanagement',
+        element: <ContentManagement></ContentManagement>,
+
+      },
+      {
+        path: 'addblogs',
+        element: <AddBlog></AddBlog>
+      }
+    ]
+  }
 ]);
 
 

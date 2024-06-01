@@ -1,13 +1,15 @@
-import { Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className="flex gap-20">
 
 
       <div>
+
       <div className="drawer lg:drawer-open">
+        
   <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
   <div className="drawer-content flex flex-col items-center justify-center">
     {/* Page content here */}
@@ -15,18 +17,22 @@ const Dashboard = () => {
   
   </div> 
   <div className="drawer-side">
+    
     <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label> 
-    <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+    <ul className="menu gap-10 p-4 w-80 min-h-full bg-base-200 text-base-content">
       {/* Sidebar content here */}
-      <li><a>Sidebar Item 1</a></li>
-      <li><a>Sidebar Item 2</a></li>
+      <li><NavLink to='/dashboard/dashhome'>DashBoard Home</NavLink></li>
+      <li><NavLink to='/dashboard/profile'>User Profile</NavLink></li>
+      <li><NavLink to='/dashboard/mydonation'>My Donation Request</NavLink></li>
+      <li><NavLink to='/dashboard/createdonationrequest'>My Donation Request</NavLink></li>
+
     </ul>
   
   </div>
 </div>
       </div>
 
-      <div>
+      <div className="flex-1">
         <Outlet></Outlet>
       </div>
     </div>
