@@ -8,10 +8,16 @@ import { Helmet } from 'react-helmet';
 import bg from '../../assets/building-business-city-construction-geometry.jpg'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { AuthContext } from '../Provider/AuthProvider';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import axios from 'axios';
 
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 
 const Register = () => {
 
+ 
 
   useEffect(() => {
     Aos.init();
@@ -40,6 +46,7 @@ const Register = () => {
   const [photo, setPhoto] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [bloodType, setBloodType] = useState('');
 
 
   const handleRegister = e => {
@@ -47,6 +54,10 @@ const Register = () => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
 
+
+
+
+    console.log(name, photo, email, password)
   
 
     const isValidPassword = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password);
@@ -56,7 +67,7 @@ const Register = () => {
       return;
     }
 
-    // Creating user here
+  
     createUser(email, password)
     .then(result => {
       
@@ -96,79 +107,97 @@ const Register = () => {
 
 
   return (
-    <div>
-      <Helmet>
-      <meta charSet="utf-8" />
-      <title>CareerCanvas - Register</title>
+<div>
+<Helmet>
+<meta charSet="utf-8" />
+<title>CareerCanvas - Register</title>
 
-      </Helmet> 
-      
+</Helmet> 
 
 
-    <div className='mx-auto container' data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500" >
 
-    <div className="bg-white dark:bg-gray-900">
-    <div className="flex justify-center h-screen">
-        <div className="hidden bg-cover lg:block lg:w-2/3" style={{backgroundImage: `url(${bg})`}}>
-            <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
-                <div>
-                    <h2 className="text-2xl font-bold text-white sm:text-3xl">Register Now!</h2>
+<div className='mx-auto container' data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500" >
 
-                    <p className="max-w-xl mt-3 text-gray-300">
-                    Registering enables you to stay connected with our community and be part of a vibrant network of users sharing similar interests and passions.
-                    </p>
-                </div>
-            </div>
-        </div>
+<div className="bg-white dark:bg-gray-900">
+<div className="flex justify-center h-screen">
+<div className="hidden bg-cover lg:block lg:w-2/3" style={{backgroundImage: `url(${bg})`}}>
+<div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+<div>
+<h2 className="text-2xl font-bold text-white sm:text-3xl">Register Now!</h2>
 
-        <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
-            <div className="flex-1">
-                <div className="text-center">
-                    {/* <div className="flex justify-center mx-auto">
-                    <img className="w-auto h-7 sm:h-8" src={logo} alt="" />
-                    </div> */}
-
-                    <p className="mt-3 text-gray-500 dark:text-gray-300">Register Your Account</p>
-                </div>
-
-                <div className="mt-8">
-                    <form onSubmit={handleRegister}>
-                        <div>
-                            <label  className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Full Name</label>
-                            <input type="text" name="name"  placeholder="Jon Doe" className="block w-full px-4 py-2 mb-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" value={name} onChange={e => setName(e.target.value)} required />
-                        </div>
-
-                        <div>
-                            <label  className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Photo URL</label>
-                            <input type="text" name="photo"  placeholder="Image URL" className="block w-full px-4 py-2 mb-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" value={photo} onChange={e => setPhoto(e.target.value)} required />
-                        </div>
-
-                        <div>
-                            <label  className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
-                            <input type="email" name="email"  placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" value={email} onChange={e => setEmail(e.target.value)} required />
-                        </div>
-
-                        <div className="mt-6">
-                            <label  className="text-sm text-gray-600 dark:text-gray-200">Password</label>
-                            <div className="flex items-center  relative">
-                            <input type="password" name="password"  placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" value={password} onChange={e => setPassword(e.target.value)} required />
-                            <span className="absolute right-[5%] top-[45%] text-white" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}</span>
-                            </div>
-                        </div>
-
-                        <div className="mt-6">
-                            <input type="submit"  className='w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50' />
-                        </div>
-
-                    </form>
-
-                    <p className="mt-6 text-sm text-center text-gray-400">Already have an account yet? <a href="#" className="text-blue-500 focus:outline-none focus:underline hover:underline"><Link to='/login'>Sign In</Link></a>.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<p className="max-w-xl mt-3 text-gray-300">
+Registering enables you to stay connected with our community and be part of a vibrant network of users sharing similar interests and passions.
+</p>
 </div>
-    </div>
+</div>
+</div>
+
+<div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+<div className="flex-1">
+<div className="text-center">
+{/* <div className="flex justify-center mx-auto">
+<img className="w-auto h-7 sm:h-8" src={logo} alt="" />
+</div> */}
+
+<p className="mt-3 text-gray-500 dark:text-gray-300">Register Your Account</p>
+</div>
+
+<div className="mt-8">
+<form onSubmit={handleRegister}>
+<div>
+<label  className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Full Name</label>
+<input type="text" name="name"  placeholder="Jon Doe" className="block w-full px-4 py-2 mb-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" value={name} onChange={e => setName(e.target.value)} required />
+</div>
+
+<div>
+<label  className="block mb-2 text-sm text-gray-600 dark:text-gray-200">User Photo / Avatar</label>
+<input type="text" name="photo"  placeholder="Image URL" className="block w-full px-4 py-2 mb-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"  value={photo} onChange={e => setPhoto(e.target.value)} required /> 
+</div>
+
+{/* Blood group */}
+
+
+<div>
+  <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Blood Type</label>
+  <select name="bloodType" className="block w-full px-4 py-2 mb-4 text-gray-700 bg-white border border-gray-200 rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" value={bloodType} onChange={e => setBloodType(e.target.value)} required>
+    <option value="">Select Blood Type</option>
+    <option value="A+">A+</option>
+    <option value="A-">A-</option>
+    <option value="B+">B+</option>
+    <option value="B-">B-</option>
+    <option value="AB+">AB+</option>
+    <option value="AB-">AB-</option>
+    <option value="O+">O+</option>
+    <option value="O-">O-</option>
+  </select>
+</div>
+
+<div>
+<label  className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
+<input type="email" name="email"  placeholder="example@example.com" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" value={email} onChange={e => setEmail(e.target.value)} required />
+</div>
+
+<div className="mt-6">
+<label  className="text-sm text-gray-600 dark:text-gray-200">Password</label>
+<div className="flex items-center  relative">
+<input type="password" name="password"  placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" value={password} onChange={e => setPassword(e.target.value)} required />
+<span className="absolute right-[5%] top-[45%] text-white" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}</span>
+</div>
+</div>
+
+<div className="mt-6">
+<input type="submit"  className='w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50' />
+</div>
+
+</form>
+
+<p className="mt-6 text-sm text-center text-gray-400">Already have an account yet? <a href="#" className="text-blue-500 focus:outline-none focus:underline hover:underline"><Link to='/login'>Sign In</Link></a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
     <ToastContainer />
     </div>
   );
