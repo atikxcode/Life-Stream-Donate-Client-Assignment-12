@@ -86,7 +86,7 @@ const Register = () => {
 
         setTimeout(() => {
           
-          navigate(location?.state ? location.state : '/');
+          navigate(location?.state ? location.state : '/dashboard/dashhome');
           window.location.reload();
         }, 2000);
         

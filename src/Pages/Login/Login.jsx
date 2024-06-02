@@ -37,7 +37,7 @@ const Login = () => {
       console.log(result.user)
       notify();
       setTimeout(() => {
-        navigate(location?.state ? location.state : '/');
+        navigate(location?.state ? location.state : '/dashboard/dashhome');
       }, 1500)
       setEmail('')
       setPassword('')
