@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.40.1",
+    "@tanstack/react-router": "^1.35.1",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
     "axios": "^1.7.2",
@@ -25,7 +27,9 @@
     "react-router-dom": "^6.23.1",
     "react-simple-typewriter": "^5.0.1",
     "react-toastify": "^10.0.5",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.11.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

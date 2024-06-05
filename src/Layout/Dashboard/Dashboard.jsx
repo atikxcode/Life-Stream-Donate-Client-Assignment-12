@@ -1,5 +1,5 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
-
+import { FaBars } from "react-icons/fa";
 
 const Dashboard = () => {
   return (
@@ -13,10 +13,10 @@ const Dashboard = () => {
   <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
   <div className="drawer-content flex flex-col items-center justify-center">
     {/* Page content here */}
-    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+    <label htmlFor="my-drawer-2" className="btn bg-white text-black drawer-button lg:hidden"><FaBars></FaBars></label>
   
   </div> 
-  <div className="drawer-side">
+  <div className=" drawer-side">
     
     <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label> 
     <ul className="menu gap-10 p-4 w-80 min-h-full bg-base-200 text-base-content">

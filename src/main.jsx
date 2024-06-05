@@ -23,8 +23,13 @@ import AllUsers from './DashBoard/Admin/AllUsers/AllUsers';
 import AllUserDonationRequest from './DashBoard/Admin/AllUserDonationRequest/AllUserDonationRequest';
 import ContentManagement from './DashBoard/Admin/ContentManagement/ContentManagement';
 import AddBlog from './DashBoard/Admin/AddBlog/AddBlog';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query'
 
-
+const queryClient = new QueryClient()
 
 
 
@@ -109,9 +114,14 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+   
+    <QueryClientProvider client={queryClient}>
     <AuthProvider>
+      
     <RouterProvider router={router} />
 
     </AuthProvider>
+    </QueryClientProvider>
+
   </React.StrictMode>,
 )
