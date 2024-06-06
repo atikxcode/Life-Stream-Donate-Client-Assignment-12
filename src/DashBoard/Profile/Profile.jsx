@@ -4,6 +4,7 @@ import { AuthContext } from '../../Pages/Provider/AuthProvider';
 import useAuth from '../../hooks/useAuth';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
+import Swal from 'sweetalert2';
 
 
 
@@ -39,7 +40,7 @@ const Profile = () => {
     setDisabled(!disabled);
   };
 
-  const { register, handleSubmit, formState: { errors }} = useForm();
+  const { register, handleSubmit, reset,  formState: { errors }} = useForm();
 
 
 
@@ -59,6 +60,7 @@ const Profile = () => {
       return res.data;
     }
   });
+  
 
 
 
@@ -72,9 +74,9 @@ const Profile = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  const filteredUpazilas = upazilas.filter(upazila => upazila.district_id == selectedDistrictId);
+  const filteredUpazilas = upazilas?.filter(upazila => upazila.district_id == selectedDistrictId);
   
-  const currentUser = userDetails.filter(users => users?.email == user?.email)
+  const currentUser = userDetails?.filter(users => users?.email == user?.email)
 
   console.log(currentUser)
 
@@ -89,33 +91,44 @@ const Profile = () => {
     })
     if(res.data.success){
       const updatedProfile = {
+                
                 name: data.name,
                 bloodgroup: data.bloodType,
                 district: districtName,
                 upazila: data.upazila,
                 image: res.data.data.display_url
       }
-
-      
-      axiosPublic.put(`/user/${currentUser[0]?._id}`)
+      console.log(updatedProfile)
+      axiosPublic.put(`/user/${currentUser[0]?._id}`, updatedProfile)
       .then(res => {
         if(res.data.modifiedCount > 0){
-          console.log("user Information Updated Successfully")
-        }
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your Profile Updated Successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
+
+          setDisabled(true)
+
+        } 
       })
-
-      console.log(updatedProfile)
-
+      .catch(error => {
+        console.error(error)
+      })
     }
+
+   
   };
 
 
   return (
-    <div className='border my-20'>
+    <div className=' my-20 shadow-custom rounded-xl'>
       {/* Form */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='flex p-4 justify-end'>
-          <button  onClick={buttonUnlock} className='btn btn-secondary'>
+          <button  onClick={buttonUnlock} className='btn bg-red-600 text-white'>
             {disabled ? 'EDIT' : 'CANCEL'}
           </button>
         </div>
@@ -129,7 +142,8 @@ const Profile = () => {
             <label  className="text-sm text-gray-600 dark:text-gray-200">User Name</label>
             <input 
               defaultValue={currentUser[0]?.name} 
-              {...register("name")} 
+              {...register("name", {required: true})} 
+              disabled={disabled}
               className="block w-full px-4 py-2 mb-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" 
             />
             <label  className="text-sm text-gray-600 dark:text-gray-200">Email</label>
@@ -140,12 +154,12 @@ const Profile = () => {
               className="block w-full px-4 py-2 mb-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" 
             />
             <label  className="text-sm text-gray-600 dark:text-gray-200">Photo URL</label>
-            <input {...register('image', { required: true })} type="file" className="file-input w-full max-w-xs" />
+            <input {...register('image', {required: true})} disabled={disabled} type="file" className="file-input w-full max-w-xs" />
 
-            {/* Change here with real info, here is dummy info for testing */}
+          
             
             <label  className="text-sm text-gray-600 dark:text-gray-200">District</label>
-        <select  {...register("district", { required: true })} name="district" 
+        <select  {...register("district", {required: true})} disabled={disabled} name="district" 
 
         onChange={ (e) => {
         const [id, name] = e.target.value.split(',');
@@ -163,7 +177,7 @@ const Profile = () => {
 
         <label  className="text-sm text-gray-600 dark:text-gray-200">Upazila</label>
             
-          <select {...register("upazila", { required: true })} name="upazila" className="block w-full px-4 py-2 mb-4 text-gray-700 bg-white border border-gray-200 rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" >
+          <select {...register("upazila", {required: true})} disabled={disabled} name="upazila" className="block w-full px-4 py-2 mb-4 text-gray-700 bg-white border border-gray-200 rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" >
           <option value={currentUser[0]?.upazila}>{currentUser[0]?.upazila}</option>
           {filteredUpazilas.map(upazila => (
           <option key={upazila._id} value={upazila.name}>
@@ -174,7 +188,7 @@ const Profile = () => {
 
 
           <label  className="text-sm text-gray-600 dark:text-gray-200">Blood Group</label>
-          <select {...register("bloodType")} name="bloodType" className="block w-full px-4 py-2 mb-4 text-gray-700 bg-white border border-gray-200 rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required>
+          <select {...register("bloodType", {required: true})} disabled={disabled} name="bloodType" className="block w-full px-4 py-2 mb-4 text-gray-700 bg-white border border-gray-200 rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" >
           <option value={currentUser[0]?.bloodgroup}>{currentUser[0]?.bloodgroup}</option>
           <option value="A+">A+</option>
           <option value="A-">A-</option>
@@ -188,7 +202,7 @@ const Profile = () => {
 
             <button 
               type="submit" 
-              className='mt-6 btn btn-primary text-sm text-center text-gray-400' 
+              className='mt-6 btn bg-red-600 text-white text-sm text-center ' 
               disabled={disabled}
             >
               Save

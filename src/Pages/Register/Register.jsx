@@ -198,7 +198,7 @@ Registering enables you to stay connected with our community and be part of a vi
     }} 
     className="block w-full px-4 py-2 mb-4 text-gray-700 bg-white border border-gray-200 rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" >
     <option value="">Select District</option>
-    {districts.map(district => (
+    {districts?.map(district => (
     <option key={district._id} value={`${district.division_id}, ${district.name}`}>
     {district.name}
     </option>
@@ -210,7 +210,7 @@ Registering enables you to stay connected with our community and be part of a vi
       <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Upazila</label>
       <select {...register("upazila", { required: true })} name="upazila" className="block w-full px-4 py-2 mb-4 text-gray-700 bg-white border border-gray-200 rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" >
       <option value="">Select Upazila</option>
-      {filteredUpazilas.map(upazila => (
+      {filteredUpazilas?.map(upazila => (
       <option key={upazila._id} value={upazila.name}>
         {upazila.name}
       </option>

@@ -25,8 +25,16 @@ const Dashboard = () => {
       <li><NavLink to='/dashboard/profile'>User Profile</NavLink></li>
       <li><NavLink to='/dashboard/mydonation'>My Donation Request</NavLink></li>
       <li><NavLink to='/dashboard/createdonationrequest'>Create Donation Request</NavLink></li>
+      <span className="divider">OR</span>
+
+
+<li><NavLink to='/'>Home</NavLink></li>
+<li><NavLink to='/blog'>Blog</NavLink></li>
+
 
     </ul>
+
+
   
   </div>
 </div>
