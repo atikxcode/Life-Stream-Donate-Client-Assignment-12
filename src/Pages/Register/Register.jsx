@@ -71,7 +71,7 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-    const isValidPassword = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(data.password);
+    
     const imageFile = { image: data.image[0] };
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
       headers: {
@@ -205,6 +205,9 @@ Registering enables you to stay connected with our community and be part of a vi
     ))}
     </select>
     </div>
+
+
+    
 
       <div>
       <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Upazila</label>
