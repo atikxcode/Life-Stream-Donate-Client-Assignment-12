@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { AuthContext } from "../../Pages/Provider/AuthProvider";
 import { FaRegSadTear } from "react-icons/fa";
-
+import Aos from "aos";
+import 'aos/dist/aos.css'
 
 const MyDonation = () => {
   const axiosPublic = useAxiosPublic();
@@ -12,6 +13,17 @@ const MyDonation = () => {
   const [selectedDonation, setSelectedDonation] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
+  const modal = (donation) => {
+    
+   
+    setTimeout(() => {
+      setSelectedDonation(donation)
+    }, 300)
+  }
+
+  useEffect(() => {
+    Aos.init();
+  },[])
 
   const { isPending, isError, error, data: donationRequest } = useQuery({
     queryKey: ['donationRequest'],
@@ -20,6 +32,7 @@ const MyDonation = () => {
       return res.data;
     }
   });
+  
 
   const { data: users } = useQuery({
     queryKey: ['users'],
@@ -50,6 +63,7 @@ const MyDonation = () => {
   if (isError) {
     return <p>Error: {error.message}</p>;
   }
+  
 
   return (
     <div>
@@ -58,6 +72,8 @@ const MyDonation = () => {
           <h2 className="text-4xl text-semibold">Here is all of your Donation Requests</h2>
         </div>
 
+       
+        
         <div className="flex justify-end mb-4">
           <select
             value={statusFilter}
@@ -75,7 +91,7 @@ const MyDonation = () => {
         <div>
           {filteredAndStatusDonation.length > 0 ? (
             filteredAndStatusDonation.map(donation => (
-              <div className="overflow-x-auto" key={donation.id}>
+              <div className="overflow-x-auto" key={donation._id}>
                 <table className="table w-full mb-8">
                   <thead>
                     <tr>
@@ -112,7 +128,7 @@ const MyDonation = () => {
                       <td>
                         <button 
                           className="btn btn-ghost btn-xs" 
-                          onClick={() => setSelectedDonation(donation)}
+                          onClick={() => modal(donation)}
                         >
                           Details
                         </button>
@@ -123,7 +139,7 @@ const MyDonation = () => {
               </div>
             ))
           ) : (
-            <div className='flex flex-col gap-10 h-screen items-center border justify-center'>
+            <div className='flex flex-col gap-10 h-screen items-center  justify-center'>
               <p className='text-5xl'><FaRegSadTear /></p>
               <h2 className='text-4xl'>You haven't posted any <span className="font-bold">Donation</span> Request</h2>
             </div>
@@ -132,7 +148,7 @@ const MyDonation = () => {
       </div>
 
       {selectedDonation && (
-        <dialog id="my_modal_2" className="modal" open>
+        <dialog id="my_modal_2" className="modal transition-all" data-aos="fade-up" data-aos-anchor-placement="center-bottom" open>
           <div className="modal-box flex flex-col items-center gap-6">
             <h3 className="font-bold text-lg">Recipient Name: {selectedDonation.recipientName}</h3>
             <h3 className="font-bold text-lg">Recipient Blood Group: {selectedDonation.recipientBloodgroup}</h3>
