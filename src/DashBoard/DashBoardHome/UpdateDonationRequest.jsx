@@ -27,7 +27,19 @@ const UpdateDonationRequest = () => {
 
 
 
-  const { register, handleSubmit, reset, control, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, control, formState: { errors } } = useForm({
+    defaultValues: {
+      recipientname: recipientName,
+      bloodType: recipientBloodgroup,
+      district: recipientDistrict,
+      upazila: recipientUpazila,
+      hospitalname: hospital,
+      fulladdress: recipientAddress,
+      donationdate: donationDate,
+      donationtime: donationTime,
+      requestmessage: message
+    }
+  });
 
 
   const { isPending, isError, error, data: upazilas } = useQuery({
@@ -74,16 +86,16 @@ const UpdateDonationRequest = () => {
  
 
   
-
+// console.log(upazilas)
   const filteredUpazilas = upazilas.filter(upazila => upazila.district_id == selectedDistrictId);
 
-
+  // console.log(filteredUpazilas)
 
   const onSubmit = data => {
     
     
     
-    const donationRequest = {
+    const updatedDonationRequest = {
         requestEmail: currentUser?.email,
         requestName: currentUser?.name,
         recipientName: data.recipientname,
@@ -99,15 +111,15 @@ const UpdateDonationRequest = () => {
     }
 
 
-    console.log(donationRequest)
+    console.log("Updated Donation Request", updatedDonationRequest)
 
-    axiosPublic.post(`/donationrequest`, donationRequest)
+    axiosPublic.put(`/donationrequest/${_id}`, updatedDonationRequest)
       .then(res => {
-        if(res.data.insertedId){
+        if(res.data.modifiedCount > 0){
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Blood Donation Request Added  Successfully",
+            title: "Updated the Blood Donation Request Successfully",
             showConfirmButton: false,
             timer: 1500,
             
@@ -149,13 +161,13 @@ const UpdateDonationRequest = () => {
  
        <div className='mb-4'>
        <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Recipient Name</label>
-       <input {...register("recipientname", { required: true })} type="text" name="recipientname" placeholder="Jon Doe" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
+       <input defaultValue={recipientName} {...register("recipientname", { required: true })} type="text" name="recipientname" placeholder="Jon Doe" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
        </div>
  
  
              <div>
              <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Blood Type</label>
-             <select {...register("bloodType")} name="bloodType" className="block w-full px-4 py-2 mb-4 text-gray-700 bg-white border border-gray-200 rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required>
+             <select defaultValue={recipientBloodgroup} {...register("bloodType")} name="bloodType" className="block w-full px-4 py-2 mb-4 text-gray-700 bg-white border border-gray-200 rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required>
              <option value="">Select Blood Type</option>
              <option value="A+">A+</option>
              <option value="A-">A-</option>
@@ -169,9 +181,9 @@ const UpdateDonationRequest = () => {
              </div>
  
  
-             <div>
+     <div>
      <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">District</label>
-     <select {...register("district", { required: true })} name="district" 
+     <select defaultValue={recipientDistrict} {...register("district", { required: true })} name="district" 
  
      onChange={ (e) => {
      const [id, name] = e.target.value.split(',');
@@ -193,7 +205,7 @@ const UpdateDonationRequest = () => {
  
      <div>
        <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Upazila</label>
-       <select {...register("upazila", { required: true })} name="upazila" className="block w-full px-4 py-2 mb-4 text-gray-700 bg-white border border-gray-200 rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" >
+       <select defaultValue={recipientUpazila} {...register("upazila", { required: true })} name="upazila" className="block w-full px-4 py-2 mb-4 text-gray-700 bg-white border border-gray-200 rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" >
        <option value="">Select Upazila</option>
        {filteredUpazilas?.map(upazila => (
        <option key={upazila._id} value={upazila.name}>
@@ -207,13 +219,13 @@ const UpdateDonationRequest = () => {
  
        <div className='mb-4'>
        <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Hospital Name</label>
-       <input {...register("hospitalname", { required: true })} type="text" name="hospitalname" placeholder="Dummy Hospital" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
+       <input defaultValue={hospital} {...register("hospitalname", { required: true })} type="text" name="hospitalname" placeholder="Dummy Hospital" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
        </div>
  
  
        <div className='mb-4'>
        <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Full Address</label>
-       <input {...register("fulladdress", { required: true })} type="text" name="fulladdress" placeholder="1234 Elm Street, Apt 56, Springfield, IL 62704, USA" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
+       <input defaultValue={recipientAddress} {...register("fulladdress", { required: true })} type="text" name="fulladdress" placeholder="1234 Elm Street, Apt 56, Springfield, IL 62704, USA" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
        </div>
  
  
@@ -223,11 +235,13 @@ const UpdateDonationRequest = () => {
       <Controller
       
       control={control}
+      defaultValue={donationDate}
       name='donationdate'
       rules={{required: true}}
       render={({field}) => (
- 
+      
        <DatePicker
+       
        selected={field.value}
        onChange={(date) => field.onChange(date)}
        placeholderText='Donation Date'
@@ -251,7 +265,7 @@ const UpdateDonationRequest = () => {
  
        <div className='mb-4'>
        <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Donation Time</label>
-       <input defaultValue={'10:30 AM'} placeholder="10:30 AM" {...register("donationtime", { required: true })} type="text" name="donationtime"  className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
+       <input  placeholder="10:30 AM" defaultValue={donationTime} {...register("donationtime", { required: true })} type="text" name="donationtime"  className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
        </div>
  
  
@@ -260,7 +274,7 @@ const UpdateDonationRequest = () => {
  
        <div>
        <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Request Message</label>
-       <input {...register("requestmessage", { required: true })} type="text"  name='requestmessage' placeholder="Write why you need blood" className="block w-full px-4 py-2 mb-4 b text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
+       <input defaultValue={message} {...register("requestmessage", { required: true })} type="text"  name='requestmessage' placeholder="Write why you need blood" className="block w-full px-4 py-2 mb-4 b text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" required />
        </div>
  
  

@@ -23,12 +23,18 @@ import AllUsers from './DashBoard/Admin/AllUsers/AllUsers';
 import AllUserDonationRequest from './DashBoard/Admin/AllUserDonationRequest/AllUserDonationRequest';
 import ContentManagement from './DashBoard/Admin/ContentManagement/ContentManagement';
 import AddBlog from './DashBoard/Admin/AddBlog/AddBlog';
+
+
 import {
   QueryClient,
   QueryClientProvider,
   useQuery,
 } from '@tanstack/react-query'
 import UpdateDonationRequest from './DashBoard/DashBoardHome/UpdateDonationRequest';
+import AdminHome from './DashBoard/Admin/AdminHome/AdminHome';
+import AllBloodDonationRequest from './DashBoard/Volunteer/AllBloodDonationRequest/AllBloodDonationRequest';
+import VolunteerHome from './DashBoard/Volunteer/VolunteerHome/VolunteerHome';
+import ContentManagementVolunteer from './DashBoard/Volunteer/ContentManagementVolunteer/ContentManagementVolunteer';
 
 const queryClient = new QueryClient()
 
@@ -98,6 +104,10 @@ const router = createBrowserRouter([
 
       // Admin only Route
       {
+        path: 'admindashboard',
+        element: <AdminHome></AdminHome>
+      },
+      {
         path: 'allusers',
         element: <AllUsers></AllUsers>
       },
@@ -113,7 +123,26 @@ const router = createBrowserRouter([
       {
         path: 'addblogs',
         element: <AddBlog></AddBlog>
-      }
+      },
+
+      // Volunteer only Routes
+
+      {
+        path: 'volunteerdashboard',
+        element: <VolunteerHome></VolunteerHome>
+      },
+
+      {
+        path: 'allblooddonation',
+        element: <AllBloodDonationRequest></AllBloodDonationRequest>
+      },
+
+      {
+        path: 'contentmanagementvolunteer',
+        element: <ContentManagementVolunteer></ContentManagementVolunteer>
+
+      },
+
     ]
   }
 ]);

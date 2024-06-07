@@ -42,7 +42,7 @@ const onSubmit = data => {
         // notify();
      
       setTimeout(() => {
-        navigate(location?.state ? location.state : '/dashboard/dashhome');
+        navigate(location?.state ? location.state : '/dashboard');
       }, 2000)
       reset();
       
