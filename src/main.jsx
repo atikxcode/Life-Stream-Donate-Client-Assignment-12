@@ -28,6 +28,7 @@ import {
   QueryClientProvider,
   useQuery,
 } from '@tanstack/react-query'
+import UpdateDonationRequest from './DashBoard/DashBoardHome/UpdateDonationRequest';
 
 const queryClient = new QueryClient()
 
@@ -87,6 +88,12 @@ const router = createBrowserRouter([
       {
         path: 'createdonationrequest',
         element: <CreateDonationRequest></CreateDonationRequest>
+      },
+
+      {
+        path: 'updatedonationrequest/:id',
+        element: <UpdateDonationRequest></UpdateDonationRequest>,
+        loader: ({params}) => fetch(`http://localhost:5000/donationrequest/${params.id}`)
       },
 
       // Admin only Route

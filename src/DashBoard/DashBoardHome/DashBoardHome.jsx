@@ -3,6 +3,7 @@ import { AuthContext } from '../../Pages/Provider/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { FaRegSadTear } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const DashBoardHome = () => {
 
@@ -23,7 +24,8 @@ const DashBoardHome = () => {
 
   // console.log(donationrequest)
 
-  const filteredDonationRequest = donationrequest.filter(donation => donation?.requestEmail === user?.email);
+  const filteredDonation = donationrequest.filter(donation => donation?.requestEmail === user?.email);
+  const filteredDonationRequest = filteredDonation.slice(0, 3)
   console.log(filteredDonationRequest) 
 
   if (isError) {
@@ -49,27 +51,56 @@ const DashBoardHome = () => {
                   <thead>
                     <tr>
                       
-                      <th className="text-left">Recipient Name</th>
-                      <th className="text-left">Recipient Location</th>
-                      <th className="text-left">Blood Group</th>
-                      <th className="text-left">Status</th>
-                      <th className="text-left">Actions</th>
+                      <th className="text-center">Recipient Name</th>
+                      <th className="text-center">Recipient Location</th>
+                      <th className="text-center">Donation Date</th>
+                      <th className="text-center">Donation Time</th>
+                      <th className="text-center">Status</th>
+                      {/* <th className="text-left">Donor Info</th>      ------Here if there is any donor req his information will come then it will work  */}
+                      <th className="text-center">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                      
-                      <td>{donation.recipientName}</td>
-                      <td className="w-[200px]">{donation.recipientUpazila}, {donation.recipientDistrict}</td>
-                      <td>{donation.recipientBloodgroup}</td>
-                      <td>{donation.status}</td>
-                      <td>
-                        <button 
-                          className="btn btn-ghost btn-xs" 
-                         
-                        >
-                          Details
-                        </button>
+                      <td className="w-[200px]  text-center">{donation.recipientName}</td>
+                      <td className="w-[200px]  text-center">{donation.recipientUpazila}, {donation.recipientDistrict}</td>
+                      <td className="w-[200px]  text-center">{donation.donationDate.split('T')[0]}</td>
+                      <td className="w-[200px]  text-center">{donation.donationTime}</td>
+                      <td className="w-[200px] text-center">
+                      {
+                        donation.status === 'inprogress' ? (
+                          <div className="flex gap-2 justify-center">
+                            <button className="btn" disabled={false}>Done</button>
+                            <button className="btn" disabled={false}>Cancel</button>
+                          </div>
+                        ) : donation.status === 'done' ? (
+                          <div className="flex gap-2 justify-center">
+                            <button className="btn" disabled={true}>Done</button>
+                            <button className="btn" disabled={true}>Cancel</button>
+                          </div>
+                        ) : donation.status === 'canceled' ? (
+                          <div className="flex gap-2 justify-center">
+                            <button className="btn" disabled={true}>Done</button>
+                            <button className="btn" disabled={true}>Cancel</button>
+                          </div>
+                        ) : (
+                          donation.status
+                        )
+                      }
+                    </td>
+                      {/* <td>
+                      <div>
+                            <div className="font-bold">{donation.requestName}</div>
+                            <div className="text-sm opacity-50">{donation.requestEmail}</div>
+                          </div>
+                      </td> */}
+                      
+                      <td className="w-[200px] ">
+                        <div className='flex gap-4 justify-center'>
+                        <Link to={`/dashboard/updatedonationrequest/${donation._id}`}><button className="btn ">Edit</button></Link>
+                        <button className="btn ">Delete</button>
+                        </div>
                       </td>
                     </tr>
                   </tbody>
