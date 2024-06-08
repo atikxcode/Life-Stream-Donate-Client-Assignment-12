@@ -101,7 +101,7 @@ const NavBar = () => {
           <div className='absolute -bottom-4/2 mb-12 left-1/2 transform -translate-x-3/4 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200'>
             <div>
               <p className='text-white'>{currentUser?.name}</p>
-              <Link to='/dashboard/dashhome'><button className='mt-2 px-4 py-2 rounded bg-blue-500 text-white'>Dashboard</button></Link>
+              <Link to='/dashboard'><button className='mt-2 px-4 py-2 rounded bg-blue-500 text-white'>Dashboard</button></Link>
             </div>
           </div>
         </div>
