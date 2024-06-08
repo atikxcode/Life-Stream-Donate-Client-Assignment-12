@@ -35,8 +35,9 @@ import AdminHome from './DashBoard/Admin/AdminHome/AdminHome';
 import AllBloodDonationRequest from './DashBoard/Volunteer/AllBloodDonationRequest/AllBloodDonationRequest';
 import VolunteerHome from './DashBoard/Volunteer/VolunteerHome/VolunteerHome';
 import ContentManagementVolunteer from './DashBoard/Volunteer/ContentManagementVolunteer/ContentManagementVolunteer';
-import BlogDetails from './DashBoard/Admin/BlogDetails/BlogDetails';
+
 import BlogEdit from './DashBoard/Admin/BlogEdit/BlogEdit';
+import BlogDetails from './DashBoard/Admin/BlogDetails/BlogDetails';
 
 const queryClient = new QueryClient()
 
@@ -128,8 +129,9 @@ const router = createBrowserRouter([
       },
 
       {
-        path: 'blogdetails',
-        element: <BlogDetails></BlogDetails>
+        path: 'blogdetails/:id',
+        element: <BlogDetails></BlogDetails>,
+        loader: ({params}) => fetch(`http://localhost:5000/blog/${params.id}`)
       },
 
       {
