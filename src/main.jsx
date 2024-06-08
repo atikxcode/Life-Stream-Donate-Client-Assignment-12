@@ -35,6 +35,8 @@ import AdminHome from './DashBoard/Admin/AdminHome/AdminHome';
 import AllBloodDonationRequest from './DashBoard/Volunteer/AllBloodDonationRequest/AllBloodDonationRequest';
 import VolunteerHome from './DashBoard/Volunteer/VolunteerHome/VolunteerHome';
 import ContentManagementVolunteer from './DashBoard/Volunteer/ContentManagementVolunteer/ContentManagementVolunteer';
+import BlogDetails from './DashBoard/Admin/BlogDetails/BlogDetails';
+import BlogEdit from './DashBoard/Admin/BlogEdit/BlogEdit';
 
 const queryClient = new QueryClient()
 
@@ -123,6 +125,16 @@ const router = createBrowserRouter([
       {
         path: 'addblogs',
         element: <AddBlog></AddBlog>
+      },
+
+      {
+        path: 'blogdetails',
+        element: <BlogDetails></BlogDetails>
+      },
+
+      {
+        path: 'blogEdit',
+        element: <BlogEdit></BlogEdit>
       },
 
       // Volunteer only Routes
