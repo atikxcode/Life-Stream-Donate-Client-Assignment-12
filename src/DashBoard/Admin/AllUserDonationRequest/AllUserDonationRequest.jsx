@@ -84,7 +84,7 @@ console.log(postedByEmail);
      <div>
       <div className="flex flex-col gap-20">
         <div className="flex justify-center">
-          <h2 className="text-4xl text-semibold">Here is all of your Donation Requests</h2>
+          <h2 className="text-4xl text-semibold text-center">Here Are All The Donation Request Of the Users</h2>
         </div>
 
        

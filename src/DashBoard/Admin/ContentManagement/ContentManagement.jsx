@@ -4,8 +4,16 @@ import { Link } from 'react-router-dom';
 const ContentManagement = () => {
   return (
     <div>
-      <h2>Here Admin can Manage Items</h2>
-      <button><Link to='/dashboard/addblogs'>Add Blogs</Link></button>
+
+     <div className='flex justify-between my-10'>
+     <h2 className='text-2xl'>Add A New Blog</h2>
+     <Link to='/dashboard/addblogs'><button className='btn'>Add Blogs</button></Link>
+     </div>
+
+     <div>
+      <h2>Here will be all the Published blog</h2>
+     </div>
+
     </div>
   );
 };
