@@ -60,7 +60,10 @@ const NavBar = () => {
   
      <li><NavLink to='/donationrequest'>Donation Request</NavLink></li>
     
-  <li><NavLink to='/Blog'>Blog</NavLink></li>
+  <li><NavLink to='/blog'>Blog</NavLink></li>
+  {
+    user &&  <li><NavLink to='/funding'>Funding</NavLink></li>
+  }
 
   </>
   return (

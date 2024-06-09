@@ -38,6 +38,12 @@ import ContentManagementVolunteer from './DashBoard/Volunteer/ContentManagementV
 
 import BlogEdit from './DashBoard/Admin/BlogEdit/BlogEdit';
 import BlogDetails from './DashBoard/Admin/BlogDetails/BlogDetails';
+import Funding from './Pages/Funding/Funding';
+import Search from './Pages/Search/Search';
+import Banner from './Pages/Banner/Banner';
+import Feature from './Pages/Feature/Feature';
+import ContactUs from './Pages/ContactUs/ContactUs';
+import Footer from './Pages/Footer/Footer';
 
 const queryClient = new QueryClient()
 
@@ -73,7 +79,32 @@ const router = createBrowserRouter([
       {
         path: 'register',
         element: <Register></Register>
-      }
+      },
+      {
+        path: 'funding',
+        element: <Funding></Funding>
+      },
+      {
+        path: 'search',
+        element: <Search></Search>
+      },
+      {
+        path: 'banner',
+        element: <Banner></Banner>
+      },
+      {
+        path: 'feature',
+        element: <Feature></Feature>
+      },
+      {
+        path: 'contactus',
+        element: <ContactUs></ContactUs>
+      },
+      {
+        path: 'footer',
+        element: <Footer></Footer>
+      },
+      
     ]
   },
 
