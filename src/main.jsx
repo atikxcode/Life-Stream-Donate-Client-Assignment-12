@@ -44,6 +44,7 @@ import Banner from './Pages/Banner/Banner';
 import Feature from './Pages/Feature/Feature';
 import ContactUs from './Pages/ContactUs/ContactUs';
 import Footer from './Pages/Footer/Footer';
+import ViewDetails from './Pages/ViewDetails/ViewDetails';
 
 const queryClient = new QueryClient()
 
@@ -103,6 +104,11 @@ const router = createBrowserRouter([
       {
         path: 'footer',
         element: <Footer></Footer>
+      },
+      {
+        path: 'viewdonordetails/:id',
+        element: <ViewDetails></ViewDetails>,
+        loader: ({params}) => fetch(`http://localhost:5000/donationrequest/${params.id}`)
       },
       
     ]
