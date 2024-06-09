@@ -135,8 +135,10 @@ const router = createBrowserRouter([
       },
 
       {
-        path: 'blogEdit',
-        element: <BlogEdit></BlogEdit>
+        path: 'blogEdit/:id',
+        element: <BlogEdit></BlogEdit>,
+        loader: ({params}) => fetch(`http://localhost:5000/blog/${params.id}`)
+
       },
 
       // Volunteer only Routes

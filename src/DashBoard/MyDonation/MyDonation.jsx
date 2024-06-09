@@ -5,6 +5,7 @@ import { AuthContext } from "../../Pages/Provider/AuthProvider";
 import { FaRegSadTear } from "react-icons/fa";
 import Aos from "aos";
 import 'aos/dist/aos.css'
+import Swal from 'sweetalert2';
 
 const MyDonation = () => {
   const axiosPublic = useAxiosPublic();
@@ -25,7 +26,7 @@ const MyDonation = () => {
     Aos.init();
   },[])
 
-  const { isPending, isError, error, data: donationRequest } = useQuery({
+  const { isPending, isError, error, refetch, data: donationRequest } = useQuery({
     queryKey: ['donationRequest'],
     queryFn: async () => {
       const res = await axiosPublic.get('/donationrequest');
@@ -62,6 +63,32 @@ const MyDonation = () => {
 
   if (isError) {
     return <p>Error: {error.message}</p>;
+  }
+
+  const updateDonationStatus = (id, stat) => {
+    const updateDonationStatus = {
+      status : stat
+    }
+    axiosPublic.put(`/donationrequest/status/${id}`, updateDonationStatus)
+    .then(res => {
+      if(res.data.modifiedCount > 0){
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Blood Donation Request Status Updated  Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+          
+        });
+        
+        refetch();
+        
+
+      } 
+    })
+    .catch(error => {
+      console.error(error)
+    })
   }
   
 
@@ -124,7 +151,9 @@ const MyDonation = () => {
                       <td>{donation.recipientName}</td>
                       <td className="w-[200px]">{donation.recipientUpazila}, {donation.recipientDistrict}</td>
                       <td>{donation.recipientBloodgroup}</td>
-                      <td>{donation.status}</td>
+                      {
+                        donation?.status === 'inprogress' ? (<td className='items-center'><div className='flex gap-4'><button className='btn' onClick={() => updateDonationStatus(donation._id, 'done')}>Done</button><button className='btn' onClick={() => updateDonationStatus(donation._id, 'canceled')}>Cancel</button></div></td>) : (<td>{donation.status}</td>) 
+                      }
                       <td>
                         <button 
                           className="btn btn-ghost btn-xs" 

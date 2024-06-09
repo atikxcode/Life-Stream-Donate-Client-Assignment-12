@@ -39,7 +39,7 @@ const BlogDetails = () => {
             
             </div>
             <div className="p-8 items-center flex">
-            <Link to><button className="text-gray-400 btn border-orange-400 bg-inherit hover:text-white hover:font-bold hover:border-orange-500 transition-all">Edit</button></Link>
+            <Link to={`/dashboard/blogEdit/${_id}`}><button className="text-gray-400 btn border-orange-400 bg-inherit hover:text-white hover:font-bold hover:border-orange-500 transition-all">Edit</button></Link>
           </div>
             
            </div>

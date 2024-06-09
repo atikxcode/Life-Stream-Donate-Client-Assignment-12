@@ -44,7 +44,7 @@ const AdminHome = () => {
     <div>
       <div className=' flex flex-col my-10 items-center gap-10 justify-center'>
         <h2 className='text-6xl'>Welcome, {user?.displayName}!</h2>
-        <p className='text-lg'>Here you can customize anything as you wish</p>
+        <p className='text-2xl'>Overview</p>
       </div>
 
       <div className='flex gap-4 mb-10'>

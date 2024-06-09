@@ -5,6 +5,7 @@ import 'aos/dist/aos.css'
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { AuthContext } from '../../../Pages/Provider/AuthProvider';
 import { FaRegSadTear } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const AllUserDonationRequest = () => {
 
@@ -28,7 +29,7 @@ const AllUserDonationRequest = () => {
     Aos.init();
   },[])
 
-  const { isPending, isError, error, data: donationRequest } = useQuery({
+  const { isPending, isError, error,refetch, data: donationRequest } = useQuery({
     queryKey: ['donationRequest'],
     queryFn: async () => {
       const res = await axiosPublic.get('/donationrequest');
@@ -75,6 +76,32 @@ const AllUserDonationRequest = () => {
 
   if (isError) {
     return <p>Error: {error.message}</p>;
+  }
+
+  const updateDonationStatus = (id, stat) => {
+    const updateDonationStatus = {
+      status : stat
+    }
+    axiosPublic.put(`/donationrequest/status/${id}`, updateDonationStatus)
+    .then(res => {
+      if(res.data.modifiedCount > 0){
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Blood Donation Request Status Updated  Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+          
+        });
+        
+        refetch();
+        
+
+      } 
+    })
+    .catch(error => {
+      console.error(error)
+    })
   }
   
 
@@ -142,7 +169,11 @@ console.log(postedByEmail);
                       <td className='text-center' >{donation.recipientName}</td>
                       <td className='text-center'>{donation.recipientUpazila}, {donation.recipientDistrict}</td>
                       <td className='text-center'>{donation.recipientBloodgroup}</td>
-                      <td className='text-center'>{donation.status}</td>
+                      <td className='text-center'>
+                      {
+                        donation?.status === 'inprogress' ? (<td className='items-center'><div className='flex gap-4'><button className='btn' onClick={() => updateDonationStatus(donation._id, 'done')}>Done</button><button className='btn' onClick={() => updateDonationStatus(donation._id, 'canceled')}>Cancel</button></div></td>) : (<td>{donation.status}</td>) 
+                      }
+                      </td>
                       <td>
                         <button 
                           className="btn" 

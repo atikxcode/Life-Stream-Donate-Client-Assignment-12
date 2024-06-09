@@ -23,7 +23,7 @@ const Dashboard = () => {
     return <div className="mx-auto container flex justify-center"><span className="loading loading-dots loading-lg"></span></div>;
   }
 
-  console.log(allUsers)
+  // console.log(allUsers)
   const admin = allUsers.filter(users => users.role === 'admin');
   const isAdmin = user?.email === admin[0].email;
 
