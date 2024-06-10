@@ -38,7 +38,7 @@ const AdminHome = () => {
 
   const donor = users.filter(users => users.role === 'donor');
   
-  const totalAmount = fundings.reduce((accumulator, funding) => {
+  const totalAmount = fundings?.reduce((accumulator, funding) => {
     return accumulator + funding.amount;
   }, 0);
   // console.log(donor?.length)
