@@ -35,7 +35,6 @@ import AdminHome from './DashBoard/Admin/AdminHome/AdminHome';
 import AllBloodDonationRequest from './DashBoard/Volunteer/AllBloodDonationRequest/AllBloodDonationRequest';
 import VolunteerHome from './DashBoard/Volunteer/VolunteerHome/VolunteerHome';
 import ContentManagementVolunteer from './DashBoard/Volunteer/ContentManagementVolunteer/ContentManagementVolunteer';
-
 import BlogEdit from './DashBoard/Admin/BlogEdit/BlogEdit';
 import BlogDetails from './DashBoard/Admin/BlogDetails/BlogDetails';
 import Funding from './Pages/Funding/Funding';
@@ -45,6 +44,8 @@ import Feature from './Pages/Feature/Feature';
 import ContactUs from './Pages/ContactUs/ContactUs';
 import Footer from './Pages/Footer/Footer';
 import ViewDetails from './Pages/ViewDetails/ViewDetails';
+import PaymentComponent from './Pages/Payment/PaymentComponent';
+
 
 const queryClient = new QueryClient()
 
@@ -105,11 +106,17 @@ const router = createBrowserRouter([
         path: 'footer',
         element: <Footer></Footer>
       },
+     {
+      path: 'payment',
+      element: <PaymentComponent></PaymentComponent>
+     },
+      
       {
-        path: 'viewdonordetails/:id',
+        path: 'viewdetails/:id',
         element: <ViewDetails></ViewDetails>,
         loader: ({params}) => fetch(`http://localhost:5000/donationrequest/${params.id}`)
       },
+      
       
     ]
   },

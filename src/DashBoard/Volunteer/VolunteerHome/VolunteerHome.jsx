@@ -25,12 +25,24 @@ const VolunteerHome = () => {
     }
   })
 
+  const { data: fundings} = useQuery({
+    queryKey: ['fundings'],
+    queryFn: async () => {
+      const res = await axiosPublic.get('/funding')
+      return res.data
+    }
+  })
+
+
   if (isPending) {
     return <div className="mx-auto container flex justify-center"><span className="loading loading-dots loading-lg"></span></div>;
   }
 
   const donor = users.filter(users => users.role === 'donor');
   
+  const totalAmount = fundings.reduce((accumulator, funding) => {
+    return accumulator + funding.amount;
+  }, 0);
   // console.log(donor?.length)
   // console.log(donationRequest)
 
@@ -68,7 +80,7 @@ const VolunteerHome = () => {
 
           <div className='flex flex-col items-center gap-4'>
             <h2 className='text-5xl font-bold italic'>Total Funding</h2>
-            <p className='text-2xl'>$234235</p>
+            <p className='text-2xl'>{totalAmount}</p>
           </div>
         </div>
       </div>

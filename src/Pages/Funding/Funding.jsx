@@ -1,9 +1,105 @@
-import React from 'react';
+import React, { useState } from 'react';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import { useQuery } from '@tanstack/react-query';
+import PaymentComponent from '../Payment/PaymentComponent';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 
+const stripePromise = loadStripe('pk_test_51PPvXCRr6UQJE1JCfynZR5iP9gDrW49XALtyYPUgXRbTzd1TzaC92CmkOWfAGKwEPXYdLzABIHKkPy805mcyYHgm00qXqbVYfn');
 const Funding = () => {
+
+  const axiosPublic = useAxiosPublic()
+  const [showPayment, setShowPayment] = useState(false);
+
+  const { isPending, isError, error, data: fundings } = useQuery({
+    queryKey: ['fundings'],
+    queryFn: async () => {
+      const res = await axiosPublic.get('/funding');
+      return res.data;
+    }
+  });
+
+  const handleGiveFundClick = () => {
+    setShowPayment(true);
+  };
+
+  const handlePayment = (paymentMethod) => {
+    // Handle payment logic here
+    console.log('Payment successful:', paymentMethod);
+  };
+
+  if (isPending) {
+    return <div className="mx-auto container flex justify-center"><span className="loading loading-dots loading-lg"></span></div>;
+  }
+
+  console.log(fundings)
+
+  if (isError) {
+    return <p>Error: {error.message}</p>;
+  }
+
+
+
   return (
-    <div>
-      <h2>THis is the funding page</h2>
+    <div className='min-h-screen my-20 mx-auto container'>
+      <div className='my-20 flex justify-end'>
+        <button className='btn' onClick={handleGiveFundClick}>Give Fund</button>
+      </div>
+      {showPayment && (
+        <div className='my-20'>
+          <Elements stripe={stripePromise}>
+            <PaymentComponent onPayment={handlePayment} />
+          </Elements>
+        </div>
+      )}
+
+      {
+        fundings.map(funding => 
+         
+            <div key={funding._id} className="overflow-x-auto shadow-custom rounded-2xl mb-10">
+  <table className="table">
+    {/* head */}
+    <thead>
+      <tr>
+        
+        <th className='text-center'>Name</th>
+        <th className='text-center'>Fund Amount</th>
+        <th className='text-center'>Funding Date</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      {/* row 1 */}
+      <tr>
+       
+        <td className='text-center'>
+          <div className="flex items-center gap-3">
+            <div className="avatar">
+              
+            </div>
+            <div className='w-full'>
+              <div className="font-bold">{funding?.name}</div>
+              <div className="text-sm opacity-50">{funding?.email}</div>
+            </div>
+          </div>
+        </td>
+        <td className='text-center'>
+          ${funding?.amount}
+          
+        </td >
+        <td className='text-center'>{funding?.date}</td>
+        
+      </tr>
+
+    </tbody>
+
+
+    
+  </table>
+         </div>
+          
+        )
+      }
     </div>
   );
 };

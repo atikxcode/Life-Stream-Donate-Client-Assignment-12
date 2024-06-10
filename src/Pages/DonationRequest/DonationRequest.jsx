@@ -69,7 +69,10 @@ const DonationRequest = () => {
           {/* <p className="font-extrabold">Message From Requester: <span className="text-[14px] text-gray-400">{donor?.message}</span></p> */}
           </div>
           <div className="p-8 items-center flex-col ">
-         <Link to={`viewdonordetails/${donor._id}`}> <button className="text-gray-400 btn border-orange-400 bg-inherit hover:text-white hover:font-bold hover:border-orange-500 transition-all">View Details</button></Link>
+          
+ <Link to={`/viewdetails/${donor?._id}`}><button className="text-gray-400 btn border-orange-400 bg-inherit hover:text-white hover:font-bold hover:border-orange-500 transition-all">   
+      View Details
+    </button> </Link>
          
           </div>
          </div>

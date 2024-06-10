@@ -1,14 +1,15 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const ViewDetails = () => {
-  const donation = useLoaderData();
 
-  const {id} = donation;
-  console.log(id)
+  const donor = useParams();
+
+  console.log(donor)
+
   return (
     <div>
-      <h2>This is the view Details page {id}</h2>
+      <h2>This is the view Details page</h2>
     </div>
   );
 };
