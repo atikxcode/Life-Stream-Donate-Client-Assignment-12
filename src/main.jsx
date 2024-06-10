@@ -45,7 +45,10 @@ import ContactUs from './Pages/ContactUs/ContactUs';
 import Footer from './Pages/Footer/Footer';
 import ViewDetails from './Pages/ViewDetails/ViewDetails';
 import PaymentComponent from './Pages/Payment/PaymentComponent';
-
+import PrivateRoute from './Pages/PrivateRoutes/PrivateRoutes';
+import AdminRoute from './Pages/PrivateRoutes/AdminRoute';
+import VolunteerRoute from './Pages/PrivateRoutes/VolunteerRoute';
+import VolunteerAdminRoute from './Pages/PrivateRoutes/VolunteerAdminRoute';
 
 const queryClient = new QueryClient()
 
@@ -84,7 +87,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'funding',
-        element: <Funding></Funding>
+        element: <PrivateRoute><Funding></Funding></PrivateRoute>
       },
       {
         path: 'search',
@@ -123,7 +126,7 @@ const router = createBrowserRouter([
 
   {
     path: 'dashboard',
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
       // Donor Route
       {
@@ -152,35 +155,35 @@ const router = createBrowserRouter([
       // Admin only Route
       {
         path: 'admindashboard',
-        element: <AdminHome></AdminHome>
+        element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
       },
       {
         path: 'allusers',
-        element: <AllUsers></AllUsers>
+        element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
       },
       {
         path: 'alldonation',
-        element: <AllUserDonationRequest></AllUserDonationRequest>
+        element: <AdminRoute><AllUserDonationRequest></AllUserDonationRequest></AdminRoute>
       },
       {
         path: 'contentmanagement',
-        element: <ContentManagement></ContentManagement>,
+        element: <AdminRoute><ContentManagement></ContentManagement></AdminRoute>,
 
       },
       {
         path: 'addblogs',
-        element: <AddBlog></AddBlog>
+        element: <VolunteerAdminRoute><AddBlog></AddBlog></VolunteerAdminRoute>
       },
 
       {
         path: 'blogdetails/:id',
-        element: <BlogDetails></BlogDetails>,
+        element: <VolunteerAdminRoute><BlogDetails></BlogDetails></VolunteerAdminRoute>,
         loader: ({params}) => fetch(`http://localhost:5000/blog/${params.id}`)
       },
 
       {
         path: 'blogEdit/:id',
-        element: <BlogEdit></BlogEdit>,
+        element: <VolunteerAdminRoute><BlogEdit></BlogEdit></VolunteerAdminRoute>,
         loader: ({params}) => fetch(`http://localhost:5000/blog/${params.id}`)
 
       },
@@ -189,17 +192,17 @@ const router = createBrowserRouter([
 
       {
         path: 'volunteerdashboard',
-        element: <VolunteerHome></VolunteerHome>
+        element: <VolunteerRoute><VolunteerHome></VolunteerHome></VolunteerRoute>
       },
 
       {
         path: 'allblooddonation',
-        element: <AllBloodDonationRequest></AllBloodDonationRequest>
+        element: <VolunteerRoute><AllBloodDonationRequest></AllBloodDonationRequest></VolunteerRoute>
       },
 
       {
         path: 'contentmanagementvolunteer',
-        element: <ContentManagementVolunteer></ContentManagementVolunteer>
+        element: <VolunteerRoute><ContentManagementVolunteer></ContentManagementVolunteer></VolunteerRoute>
 
       },
 
