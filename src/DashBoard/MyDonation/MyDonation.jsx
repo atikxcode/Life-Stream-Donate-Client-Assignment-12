@@ -118,21 +118,26 @@ const MyDonation = () => {
         <div>
           {filteredAndStatusDonation.length > 0 ? (
             filteredAndStatusDonation.map(donation => (
-              <div className="overflow-x-auto" key={donation._id}>
+              <div className="overflow-x-auto shadow-custom mb-8 rounded-3xl" key={donation._id}>
                 <table className="table w-full mb-8">
                   <thead>
                     <tr>
-                      <th className="text-left">Posted By</th>
-                      <th className="text-left">Recipient Name</th>
-                      <th className="text-left">Recipient Location</th>
-                      <th className="text-left">Blood Group</th>
+                      <th className="text-center">Posted By</th>
+                      <th className="text-center">Recipient Name</th>
+                      <th className="text-center">Recipient Location</th>
+                      <th className="text-center">Blood Group</th>
+                      {
+                        donation?.status === 'inprogress' ? 
+                        <th className="text-center">Donor Info</th> : 
+                        ''
+                      }
                       <th className="text-left">Status</th>
                       <th className="text-left">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>
+                      <td className='text-center'>
                         <div className="flex items-center gap-3">
                           <div className="avatar">
                             <div className="mask mask-squircle w-12 h-12">
@@ -148,15 +153,25 @@ const MyDonation = () => {
                           </div>
                         </div>
                       </td>
-                      <td>{donation.recipientName}</td>
-                      <td className="w-[200px]">{donation.recipientUpazila}, {donation.recipientDistrict}</td>
-                      <td>{donation.recipientBloodgroup}</td>
+                      <td className='text-center'>{donation.recipientName}</td>
+                      <td className="text-center">{donation.recipientUpazila}, {donation.recipientDistrict}</td>
+                      <td className="text-center">{donation.recipientBloodgroup}</td>
+                        {
+                          donation?.status === 'inprogress' &&(
+                           <td className='text-center'>
+                             <div>
+                            <div className="font-bold">{donation?.donorName}</div>
+                            <div className="text-sm opacity-50">{donation?.donorEmail}</div>
+                          </div>
+                           </td>
+                          )
+                        }
                       {
-                        donation?.status === 'inprogress' ? (<td className='items-center'><div className='flex gap-4'><button className='btn' onClick={() => updateDonationStatus(donation._id, 'done')}>Done</button><button className='btn' onClick={() => updateDonationStatus(donation._id, 'canceled')}>Cancel</button></div></td>) : (<td>{donation.status}</td>) 
+                        donation?.status === 'inprogress' ? (<td className='items-center text-center'><div className='flex gap-4'><button className='btn' onClick={() => updateDonationStatus(donation._id, 'done')}>Done</button><button className='btn' onClick={() => updateDonationStatus(donation._id, 'canceled')}>Cancel</button></div></td>) : (<td>{donation.status}</td>) 
                       }
                       <td>
                         <button 
-                          className="btn btn-ghost btn-xs" 
+                          className="btn flex justify-center" 
                           onClick={() => modal(donation)}
                         >
                           Details

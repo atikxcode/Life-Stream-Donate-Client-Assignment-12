@@ -43,12 +43,15 @@ import Banner from './Pages/Banner/Banner';
 import Feature from './Pages/Feature/Feature';
 import ContactUs from './Pages/ContactUs/ContactUs';
 import Footer from './Pages/Footer/Footer';
-import ViewDetails from './Pages/ViewDetails/ViewDetails';
+
 import PaymentComponent from './Pages/Payment/PaymentComponent';
 import PrivateRoute from './Pages/PrivateRoutes/PrivateRoutes';
 import AdminRoute from './Pages/PrivateRoutes/AdminRoute';
 import VolunteerRoute from './Pages/PrivateRoutes/VolunteerRoute';
 import VolunteerAdminRoute from './Pages/PrivateRoutes/VolunteerAdminRoute';
+import BlogEditVolunteer from './DashBoard/Volunteer/BlogEditVolunteer/BlogEditVolunteer';
+import BlogDetailsVolunteer from './DashBoard/Volunteer/BlogDetailsVolunteer/BlogDetailsVolunteer';
+import ViewDetails from './Pages/ViewDetails/ViewDetails';
 
 const queryClient = new QueryClient()
 
@@ -113,12 +116,13 @@ const router = createBrowserRouter([
       path: 'payment',
       element: <PaymentComponent></PaymentComponent>
      },
+     {
+      path: 'details/:id',
+      element: <ViewDetails></ViewDetails>,
+      loader: ({params}) => fetch(`http://localhost:5000/donationrequest/${params?.id}`)
+     }
       
-      {
-        path: 'viewdetails/:id',
-        element: <ViewDetails></ViewDetails>,
-        loader: ({params}) => fetch(`http://localhost:5000/donationrequest/${params.id}`)
-      },
+
       
       
     ]
@@ -172,12 +176,12 @@ const router = createBrowserRouter([
       },
       {
         path: 'addblogs',
-        element: <VolunteerAdminRoute><AddBlog></AddBlog></VolunteerAdminRoute>
+        element: <AddBlog></AddBlog>
       },
 
       {
         path: 'blogdetails/:id',
-        element: <VolunteerAdminRoute><BlogDetails></BlogDetails></VolunteerAdminRoute>,
+        element: <BlogDetails></BlogDetails>,
         loader: ({params}) => fetch(`http://localhost:5000/blog/${params.id}`)
       },
 
@@ -205,6 +209,18 @@ const router = createBrowserRouter([
         element: <VolunteerRoute><ContentManagementVolunteer></ContentManagementVolunteer></VolunteerRoute>
 
       },
+      {
+        path: 'blogeditvolunteer/:id',
+        element: <VolunteerRoute><BlogEditVolunteer></BlogEditVolunteer></VolunteerRoute>,
+        loader: ({params}) => fetch(`http://localhost:5000/blog/${params.id}`)
+      },
+
+      {
+        path: 'blogdetailsvolunteer/:id',
+        element: <VolunteerRoute><BlogDetailsVolunteer></BlogDetailsVolunteer></VolunteerRoute>,
+        loader: ({params}) => fetch(`http://localhost:5000/blog/${params.id}`)
+        
+      }
 
     ]
   }

@@ -59,11 +59,7 @@ const onSubmit = data => {
 
   return (
     <div>
-     <Helmet>
-      <meta charSet="utf-8" />
-      <title>CareerCanvas - Login</title>
-
-      </Helmet> 
+    
     
     <div className="my-16" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500" >
     <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">

@@ -87,9 +87,9 @@ const ContentManagementVolunteer = () => {
 
         </div>
         <div className="p-8 items-center flex flex-col gap-8">
-       <Link to={`/dashboard/blogdetails/${blog?._id}`}> <button className="text-gray-400 btn border-orange-400 bg-inherit hover:text-white hover:font-bold hover:border-orange-500 transition-all">View Details</button></Link>
+       <Link to={`/dashboard/blogdetailsvolunteer/${blog?._id}`}> <button className="text-gray-400 btn border-orange-400 bg-inherit hover:text-white hover:font-bold hover:border-orange-500 transition-all">View Details</button></Link>
 
-       <Link to={`/dashboard/blogEdit/${blog?._id}`}> <button className="text-gray-400 btn border-orange-400 bg-inherit hover:text-white hover:font-bold hover:border-orange-500 transition-all">Edit</button></Link>
+       <Link to={`/dashboard/blogeditvolunteer/${blog?._id}`}> <button className="text-gray-400 btn border-orange-400 bg-inherit hover:text-white hover:font-bold hover:border-orange-500 transition-all">Edit</button></Link>
        
         </div>
        </div>

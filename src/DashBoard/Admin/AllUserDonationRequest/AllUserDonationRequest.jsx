@@ -142,6 +142,11 @@ console.log(postedByEmail);
                       <th className="w-1/4 text-center">Recipient Name</th>
                       <th className="w-1/4 text-center">Recipient Location</th>
                       <th className="w-1/4 text-center">Blood Group</th>
+                      {/* {
+                        donation?.status === 'inprogress' ? 
+                        <th className="text-center">Donor Info</th> : 
+                        ''
+                      } */}
                       <th className="w-1/4 text-center">Status</th>
                       <th className="w-1/4 text-center">Actions</th>
                     </tr>
@@ -169,11 +174,18 @@ console.log(postedByEmail);
                       <td className='text-center' >{donation.recipientName}</td>
                       <td className='text-center'>{donation.recipientUpazila}, {donation.recipientDistrict}</td>
                       <td className='text-center'>{donation.recipientBloodgroup}</td>
-                      <td className='text-center'>
-                      {
-                        donation?.status === 'inprogress' ? (<td className='items-center'><div className='flex gap-4'><button className='btn' onClick={() => updateDonationStatus(donation._id, 'done')}>Done</button><button className='btn' onClick={() => updateDonationStatus(donation._id, 'canceled')}>Cancel</button></div></td>) : (<td>{donation.status}</td>) 
-                      }
-                      </td>
+                      {/* {
+                          donation?.status === 'inprogress' &&(
+                           <td className='text-center'>
+                             <div>
+                            <div className="font-bold">{donation?.donorName}</div>
+                            <div className="text-sm opacity-50">{donation?.donorEmail}</div>
+                          </div>
+                           </td>
+                          )
+                        } */}
+                          <td className='text-center'>{donation.status}</td>
+
                       <td>
                         <button 
                           className="btn" 

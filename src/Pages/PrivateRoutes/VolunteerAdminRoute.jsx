@@ -18,8 +18,8 @@ const VolunteerAdminRoute = ({ children }) => {
     }
   });
 
-  const admin = userRoles?.find(admin => admin.role === 'admin')
-  const volunteer = userRoles?.find(volunteer => volunteer.role === 'volunteer')
+  const admin = userRoles?.filter(admin => admin.role === 'admin')
+  const volunteer = userRoles?.filter(volunteer => volunteer.role === 'volunteer')
   const isAdmin = user?.email === admin?.email;
   const isVolunteer = user?.email === volunteer?.email;
   

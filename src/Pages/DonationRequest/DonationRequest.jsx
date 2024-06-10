@@ -70,10 +70,12 @@ const DonationRequest = () => {
           </div>
           <div className="p-8 items-center flex-col ">
           
- <Link to={`viewdetails/${donor?._id}`}><button className="text-gray-400 btn border-orange-400 bg-inherit hover:text-white hover:font-bold hover:border-orange-500 transition-all">   
-      View Details
-    </button> </Link>
-         
+          <Link to={`/details/${donor?._id}`}>
+          <button className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white font-bold py-2 px-4 rounded-full shadow-lg transform transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+            View Details
+          </button>
+        </Link>
+            
           </div>
          </div>
           

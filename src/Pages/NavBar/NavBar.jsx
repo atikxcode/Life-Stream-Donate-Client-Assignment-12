@@ -56,13 +56,13 @@ const NavBar = () => {
 
 
   const navLinks = <>
-  <li><NavLink to='/'>Home</NavLink></li>
+  <li className={theme === 'light' ? "text-black" : "text-white"}><NavLink to='/'>Home</NavLink></li>
   
-     <li><NavLink to='/donationrequest'>Donation Request</NavLink></li>
+     <li className={theme === 'light' ? "text-black" : "text-white"}><NavLink to='/donationrequest'>Donation Request</NavLink></li>
     
-  <li><NavLink to='/blog'>Blog</NavLink></li>
+  <li className={theme === 'light' ? "text-black" : "text-white"}><NavLink to='/blog'>Blog</NavLink></li>
   {
-    user &&  <li><NavLink to='/funding'>Funding</NavLink></li>
+    user &&  <li className={theme === 'light' ? "text-black" : "text-white"}><NavLink to='/funding'>Funding</NavLink></li>
   }
 
   </>
