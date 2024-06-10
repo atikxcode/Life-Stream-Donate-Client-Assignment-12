@@ -56,7 +56,7 @@ const VolunteerHome = () => {
   }
 
 
-  
+  let formattedAmount = totalAmount?.toFixed(2)
 
 
   return (
@@ -66,49 +66,36 @@ const VolunteerHome = () => {
       <title>Volunteer Dashboard - Life Stream Donate</title>
 
       </Helmet>
-    <div className=' flex flex-col my-10 items-center gap-10 justify-center'>
-      <h2 className='text-6xl'>Welcome, {user?.displayName}!</h2>
-      <p className='text-2xl'>Overview</p>
-    </div>
+      <div className='flex flex-col my-10 items-center gap-10 justify-center'>
+        <h2 className='text-2xl md:text-3xl lg:text-4xl xl:text-6xl'>Welcome, {user?.displayName}!</h2>
+        <p className='text-2xl'>Overview</p>
+      </div>
 
-    <div className='flex gap-4 mb-10'>
-
-      <div className=' w-1/2 bg-red-200 rounded-xl text-black p-8'>
-        <div className='flex items-center justify-around'>
-          <p className='text-8xl p-4  rounded-xl text-red-600'><FaUsers /></p>
-
+      <div className='flex flex-col md:flex-row gap-4 mb-10 items-center justify-center'>
+        <div className='w-[95%] md:w-1/2 lg:w-1/3 bg-red-200 rounded-xl text-black p-8 flex items-center justify-around'>
+          <p className='text-2xl md:text-4xl lg:text-6xl xl:text-8xl p-4 rounded-xl text-red-600'><FaUsers /></p>
           <div className='flex flex-col items-center gap-4'>
-            <h2 className='text-5xl font-bold italic'>Total Users</h2>
+            <h2 className='text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold italic'>Total Users</h2>
             <p className='text-2xl'>{donor?.length}</p>
           </div>
         </div>
-      </div>
 
-      <div className=' w-1/2 bg-blue-200 rounded-xl text-black p-8'>
-        <div className='flex items-center justify-around'>
-          <p className='text-8xl p-4  rounded-xl text-blue-400'><FaMoneyBillAlt /></p>
-
+        <div className='w-[95%] md:w-1/2 lg:w-1/3 bg-blue-200 rounded-xl text-black p-8 flex items-center justify-around'>
+          <p className='text-2xl md:text-4xl lg:text-6xl xl:text-8xl p-4 rounded-xl text-blue-400'><FaMoneyBillAlt /></p>
           <div className='flex flex-col items-center gap-4'>
-            <h2 className='text-5xl font-bold italic'>Total Funding</h2>
-            <p className='text-2xl'>{totalAmount}</p>
+            <h2 className='text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold italic'>Total Funding</h2>
+            <p className='text-2xl w-[70px] md:w-auto lg:w-auto xl:w-auto'>${formattedAmount}</p>
           </div>
         </div>
       </div>
 
-    </div>
-
-
-    <div className='  bg-green-200 rounded-xl text-black p-8'>
-        <div className='flex items-center justify-around'>
-          <p className='text-8xl p-4  rounded-xl text-green-500'><FaHandsHelping /></p>
-
-          <div className='flex flex-col items-center gap-4'>
-            <h2 className='text-5xl font-bold italic'>Total Blood Donation Request</h2>
-            <p className='text-2xl'>{donationRequest?.length}</p>
-          </div>
+      <div className='w-[95%] md:w-2/3 lg:w-1/2 bg-green-200 rounded-xl text-black p-8 flex items-center justify-around mx-auto'>
+        <p className='text-2xl md:text-4xl lg:text-6xl xl:text-8xl p-4 rounded-xl text-green-500'><FaHandsHelping /></p>
+        <div className='flex flex-col items-center gap-4'>
+          <h2 className='text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold italic'>Total Blood Donation Requests</h2>
+          <p className='text-2xl'>{donationRequest?.length}</p>
         </div>
       </div>
-
 
   </div>
   );

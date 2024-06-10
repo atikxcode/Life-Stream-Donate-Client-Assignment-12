@@ -129,7 +129,7 @@ console.log(postedByEmail);
           <select
             value={statusFilter}
             onChange={handleFilterChange}
-            className="select select-bordered w-full max-w-xs"
+            className="select select-bordered w-full max-w-[100px] md:max-w-xs lg:max-w-xs xl:max-w-xs"
           >
             <option value="all">All</option>
             <option value="pending">Pending</option>

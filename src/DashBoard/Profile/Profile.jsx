@@ -143,7 +143,7 @@ const Profile = () => {
           </button>
         </div>
 
-        <div className='flex items-center'>
+        <div className='flex-col md:flex lg:flex xl:flex items-center'>
           <div>
             <img className='h-[300px] w-[300px] rounded-[50%] p-4' src={currentUser[0]?.image} alt="" />
           </div>

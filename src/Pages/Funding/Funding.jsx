@@ -65,7 +65,7 @@ const Funding = () => {
       )}
 
       <div className='flex justify-center my-16'>
-        <h2 className='text-3xl font-semibold'><span className='font-bold'>Wall of Gratitude:</span> Our Generous Contributors</h2>
+        <h2 className='text-2xl text-center md:text-2xl lg:text-3xl xl:text-3xl font-semibold'><span className='font-bold'>Wall of Gratitude:</span> Our Generous Contributors</h2>
       </div>
 
       {

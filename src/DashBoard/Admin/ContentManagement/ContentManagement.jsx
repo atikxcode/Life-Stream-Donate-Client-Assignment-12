@@ -146,7 +146,7 @@ const ContentManagement = () => {
         <div className="mx-auto hover:scale-110 duration-1000 transition-all bg-[#1b1b1b] w-[90%] xl:w-[450px]">
         <img className=" h-[350px] w-full" src={blog?.image} alt="" />
        
-       <div className="flex justify-between items-center">
+       <div className="md:flex lg:flex xl:flex justify-between items-center ">
 
        <div className="flex text-white gap-2 flex-col items-start p-8 bg-[#1b1b1b] opacity-70">
         <p className="text-lg text-orange-500 mb-2">{blog?.title}</p>

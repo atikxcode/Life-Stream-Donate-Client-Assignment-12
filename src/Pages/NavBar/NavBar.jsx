@@ -103,7 +103,7 @@ const NavBar = () => {
           <img className='w-[50px] h-[50px] object-cover rounded-full'  src={currentUser?.image} alt="" />
           <div className='absolute -bottom-4/2 mb-12 left-1/2 transform -translate-x-3/4 opacity-0 group-hover:opacity-100 transition ease-in-out duration-200'>
             <div>
-              <p className='text-white'>{currentUser?.name}</p>
+              <p className={theme === 'light' ? "text-black" : "text-white"}>{currentUser?.name}</p>
               <Link to='/dashboard'><button className='mt-2 px-4 py-2 rounded bg-blue-500 text-white'>Dashboard</button></Link>
             </div>
           </div>
