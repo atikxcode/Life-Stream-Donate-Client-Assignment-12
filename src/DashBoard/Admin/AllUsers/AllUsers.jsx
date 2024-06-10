@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet';
 
 const AllUsers = () => {
 
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const [statusFilter, setStatusFilter] = useState('all');
   
 
@@ -45,7 +48,7 @@ const AllUsers = () => {
 
   // console.log("Updated Donation Request", updateRole)
 
-  axiosPublic.put(`/user/role/${id}`, updateRole)
+  axiosSecure.put(`/user/role/${id}`, updateRole)
     .then(res => {
       if(res.data.modifiedCount > 0){
         Swal.fire({
@@ -74,7 +77,7 @@ const AllUsers = () => {
 
   // console.log("Updated Donation Request", updateStatus)
 
-  axiosPublic.put(`/user/status/${id}`, updateStatus)
+  axiosSecure.put(`/user/status/${id}`, updateStatus)
     .then(res => {
       if(res.data.modifiedCount > 0){
         Swal.fire({
@@ -99,6 +102,12 @@ const AllUsers = () => {
 
   return (
     <div>
+
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>All User - Life Stream Donate</title>
+
+      </Helmet>
       <div className='flex  justify-between my-10 mb-10'>
         <h2>Members</h2>
         <div>

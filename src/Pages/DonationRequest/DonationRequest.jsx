@@ -6,6 +6,7 @@ import 'aos/dist/aos.css'
 import Aos from "aos";
 import image from '../../assets/blood-drop-plus-heart-shape-600nw-2238094877.webp'
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 
 const DonationRequest = () => {
@@ -45,11 +46,16 @@ const DonationRequest = () => {
 
   return (
     <div className='my-20 mx-auto container'>
+       <Helmet>
+      <meta charSet="utf-8" />
+      <title>Donation Request - Life Stream Donate</title>
+
+      </Helmet>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-16'>
                   {
             filteredDonationRequest.map(donor => 
               <div className="" key={donor._id}>
-          <div className="mx-auto hover:scale-110 duration-1000 transition-all bg-[#1b1b1b] w-[90%] xl:w-[450px]">
+          <div className="mx-auto hover:scale-110 duration-1000 transition-all bg-[#1b1b1b] w-[90%] xl:w-[450px] shadow-custom">
           <img className=" h-[350px] w-full" src={image} alt="" />
          
          <div className="flex justify-between">

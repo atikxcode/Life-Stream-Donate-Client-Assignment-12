@@ -119,7 +119,7 @@ const router = createBrowserRouter([
      {
       path: 'details/:id',
       element: <PrivateRoute><ViewDetails></ViewDetails></PrivateRoute>,
-      loader: ({params}) => fetch(`http://localhost:5000/donationrequest/${params?.id}`)
+      loader: ({params}) => fetch(`https://assignment-12-server-peach.vercel.app/donationrequest/${params?.id}`)
      }
       
 
@@ -135,25 +135,25 @@ const router = createBrowserRouter([
       // Donor Route
       {
         path: 'dashhome',
-        element: <DashBoardHome></DashBoardHome> 
+        element: <PrivateRoute><DashBoardHome></DashBoardHome> </PrivateRoute>
       },
       {
         path: 'profile',
-        element: <Profile></Profile>
+        element: <PrivateRoute><Profile></Profile></PrivateRoute>
       },
       {
         path: 'mydonation',
-        element: <MyDonation></MyDonation>
+        element: <PrivateRoute><MyDonation></MyDonation></PrivateRoute>
       },
       {
         path: 'createdonationrequest',
-        element: <CreateDonationRequest></CreateDonationRequest>
+        element: <PrivateRoute><CreateDonationRequest></CreateDonationRequest></PrivateRoute>
       },
 
       {
         path: 'updatedonationrequest/:id',
         element: <UpdateDonationRequest></UpdateDonationRequest>,
-        loader: ({params}) => fetch(`http://localhost:5000/donationrequest/${params.id}`)
+        loader: ({params}) => fetch(`https://assignment-12-server-peach.vercel.app/donationrequest/${params.id}`)
       },
 
       // Admin only Route
@@ -176,19 +176,19 @@ const router = createBrowserRouter([
       },
       {
         path: 'addblogs',
-        element: <AddBlog></AddBlog>
+        element: <AdminRoute><AddBlog></AddBlog></AdminRoute>
       },
 
       {
         path: 'blogdetails/:id',
-        element: <BlogDetails></BlogDetails>,
-        loader: ({params}) => fetch(`http://localhost:5000/blog/${params.id}`)
+        element: <AdminRoute><BlogDetails></BlogDetails></AdminRoute>,
+        loader: ({params}) => fetch(`https://assignment-12-server-peach.vercel.app/blog/${params.id}`)
       },
 
       {
         path: 'blogEdit/:id',
-        element: <VolunteerAdminRoute><BlogEdit></BlogEdit></VolunteerAdminRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/blog/${params.id}`)
+        element: <AdminRoute><BlogEdit></BlogEdit></AdminRoute>,
+        loader: ({params}) => fetch(`https://assignment-12-server-peach.vercel.app/blog/${params.id}`)
 
       },
 
@@ -212,13 +212,13 @@ const router = createBrowserRouter([
       {
         path: 'blogeditvolunteer/:id',
         element: <VolunteerRoute><BlogEditVolunteer></BlogEditVolunteer></VolunteerRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/blog/${params.id}`)
+        loader: ({params}) => fetch(`https://assignment-12-server-peach.vercel.app/blog/${params.id}`)
       },
 
       {
         path: 'blogdetailsvolunteer/:id',
         element: <VolunteerRoute><BlogDetailsVolunteer></BlogDetailsVolunteer></VolunteerRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/blog/${params.id}`)
+        loader: ({params}) => fetch(`https://assignment-12-server-peach.vercel.app/blog/${params.id}`)
         
       }
 

@@ -5,6 +5,7 @@ import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { FaRegSadTear } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const DashBoardHome = () => {
 
@@ -12,7 +13,7 @@ const DashBoardHome = () => {
   const axiosPublic = useAxiosPublic();
   const [showAll, setShowAll] = useState(false);
 
-  const {isError, error, isPending, data: donationrequest} = useQuery({
+  const {isError, error, isPending, refetch, data: donationrequest} = useQuery({
     queryKey: ['donationrequest'],
     queryFn: async () => {
       const res = await axiosPublic.get('/donationrequest')
@@ -27,7 +28,7 @@ const DashBoardHome = () => {
   // console.log(donationrequest)
 
   const filteredDonation = donationrequest.filter(donation => donation?.requestEmail === user?.email);
-  const filteredDonationRequest = showAll ? filteredDonation : filteredDonation.slice(0, 3);
+  const filteredDonationRequest = showAll ? filteredDonation : filteredDonation.slice(-3);
   console.log(filteredDonationRequest) 
 
   if (isError) {
@@ -77,8 +78,41 @@ const DashBoardHome = () => {
     });
   };
 
+  const updateDonationStatus = (id, stat) => {
+    const updateDonationStatus = {
+      status : stat
+    }
+    axiosPublic.put(`/donationrequest/status/${id}`, updateDonationStatus)
+    .then(res => {
+      if(res.data.modifiedCount > 0){
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Blood Donation Request Status Updated  Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+          
+        });
+        
+        refetch();
+        
+
+      } 
+    })
+    .catch(error => {
+      console.error(error)
+    })
+  }
+
   return (
     <div className=''>
+
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>User Dashboard - Life Stream Donate</title>
+
+      </Helmet>
+      
 
       <div className=' flex my-10 justify-center'>
         <h2 className='text-6xl'>Welcome, {user?.displayName}!</h2>
@@ -94,12 +128,17 @@ const DashBoardHome = () => {
               <div className="overflow-x-auto shadow-custom mb-9 rounded-2xl" key={donation._id}>
                 <table className="table w-full mb-8">
                   <thead>
-                    <tr>
+                    <tr className='text-center'>
                       
                       <th className="text-center">Recipient Name</th>
                       <th className="text-center">Recipient Location</th>
                       <th className="text-center">Donation Date</th>
                       <th className="text-center">Donation Time</th>
+                      {
+                        donation?.status === 'inprogress' ? 
+                        <th className="text-center">Donor Info</th> : 
+                        ''
+                      }
                       <th className="text-center">Status</th>
                       {/* <th className="text-left">Donor Info</th>      ------Here if there is any donor req his information will come then it will work  */}
                       <th className="text-center">Actions</th>
@@ -108,32 +147,28 @@ const DashBoardHome = () => {
                   <tbody>
                     <tr>
                      
-                      <td className="w-[200px]  text-center">{donation.recipientName}</td>
-                      <td className="w-[200px]  text-center">{donation.recipientUpazila}, {donation.recipientDistrict}</td>
-                      <td className="w-[200px]  text-center">{donation.donationDate.split('T')[0]}</td>
-                      <td className="w-[200px]  text-center">{donation.donationTime}</td>
-                      <td className="w-[200px] text-center">
-                      {
-                        donation.status === 'inprogress' ? (
-                          <div className="flex gap-2 justify-center">
-                            <button className="btn" disabled={false}>Done</button>
-                            <button className="btn" disabled={false}>Cancel</button>
+                      <td className=" text-center">{donation.recipientName}</td>
+                      <td className="  text-center">{donation.recipientUpazila}, {donation.recipientDistrict}</td>
+                      <td className="  text-center">{donation.donationDate.split('T')[0]}</td>
+                      <td className=" text-center">{donation.donationTime}</td>
+                     
+                    
+                    {
+                          donation?.status === 'inprogress' ? (
+                           <td className='text-center'>
+                             <div className=''>
+                            <div className="font-bold">{donation?.donorName}</div>
+                            <div className="text-sm opacity-50">{donation?.donorEmail}</div>
                           </div>
-                        ) : donation.status === 'done' ? (
-                          <div className="flex gap-2 justify-center">
-                            <button className="btn" disabled={true}>Done</button>
-                            <button className="btn" disabled={true}>Cancel</button>
-                          </div>
-                        ) : donation.status === 'canceled' ? (
-                          <div className="flex gap-2 justify-center">
-                            <button className="btn" disabled={true}>Done</button>
-                            <button className="btn" disabled={true}>Cancel</button>
-                          </div>
-                        ) : (
-                          donation.status
-                        )
-                      }
-                    </td>
+                           </td>
+                          ) : ''
+                        }
+                    
+                        <td className='text-center  items-center flex justify-center'>
+                        {
+                        donation?.status === 'inprogress' ? (<td className='items-center text-center'><div className='flex gap-4'><button className='btn' onClick={() => updateDonationStatus(donation._id, 'done')}>Done</button><button className='btn' onClick={() => updateDonationStatus(donation._id, 'canceled')}>Cancel</button></div></td>) : (<td>{donation.status}</td>) 
+                        }
+                        </td>
                       {/* <td>
                       <div>
                             <div className="font-bold">{donation.requestName}</div>
@@ -141,7 +176,7 @@ const DashBoardHome = () => {
                           </div>
                       </td> */}
                       
-                      <td className="w-[200px] ">
+                      <td className="w-[200px] text-center ">
                         <div className='flex gap-4 justify-center'>
                         <Link to={`/dashboard/updatedonationrequest/${donation._id}`}><button className="btn ">Edit</button></Link>
                         <button className="btn" onClick={() => handleDelete(donation._id)}>Delete</button>

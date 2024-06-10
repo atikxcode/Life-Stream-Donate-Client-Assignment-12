@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import 'aos/dist/aos.css'
 import Aos from "aos";
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 
 const ContentManagement = () => {
@@ -110,6 +111,12 @@ const ContentManagement = () => {
 
   return (
     <div>
+
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Content Management - Life Stream Donate</title>
+
+      </Helmet>
 
      <div className='flex justify-between my-10 '>
      <h2 className='text-2xl'>Add A New Blog</h2>

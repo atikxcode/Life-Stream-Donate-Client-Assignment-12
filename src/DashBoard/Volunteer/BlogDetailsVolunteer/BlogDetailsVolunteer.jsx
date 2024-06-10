@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import 'aos/dist/aos.css'
 import Aos from "aos";
+import { Helmet } from 'react-helmet';
 
 
 const BlogDetailsVolunteer = () => {
@@ -15,6 +16,11 @@ const BlogDetailsVolunteer = () => {
 
   return (
     <div>
+      <Helmet>
+      <meta charSet="utf-8" />
+      <title>Blog Details - Life Stream Donate</title>
+
+      </Helmet>
     <div className="w-full mx-auto container my-32"  data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500" >
        <div className=" bg-[#1b1b1b]">
         

@@ -58,7 +58,13 @@ const onSubmit = data => {
 
 
   return (
-    <div>
+    <div className='pt-36 min-h-screen'>
+
+      <Helmet>
+      <meta charSet="utf-8" />
+      <title>Login - Life Stream Donate</title>
+
+      </Helmet>
     
     
     <div className="my-16" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500" >

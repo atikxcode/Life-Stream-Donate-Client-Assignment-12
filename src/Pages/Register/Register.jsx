@@ -134,11 +134,14 @@ const Register = () => {
 
 
   return (
-    <div>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>CareerCanvas - Register</title>
+    <div className='py-20 '>
+
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Register - Life Stream Donate</title>
+
       </Helmet>
+     
 
 <div className='mx-auto container' data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500">
 <div className="bg-white dark:bg-gray-900">

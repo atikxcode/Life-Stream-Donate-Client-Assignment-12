@@ -6,6 +6,7 @@ import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { AuthContext } from '../../../Pages/Provider/AuthProvider';
 import { FaRegSadTear } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const AllUserDonationRequest = () => {
 
@@ -108,6 +109,14 @@ const AllUserDonationRequest = () => {
 console.log(postedByEmail);
   return (
     <div>
+
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>All Blood Donation Request - Life Stream Donate</title>
+
+      </Helmet>
+
+
      <div>
       <div className="flex flex-col gap-20">
         <div className="flex justify-center">

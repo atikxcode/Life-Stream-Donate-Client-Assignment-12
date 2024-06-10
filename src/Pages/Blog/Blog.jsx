@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import './Blog.css'
+import { Helmet } from 'react-helmet';
 
 const Blog = () => {
   const axiosPublic = useAxiosPublic();
@@ -37,6 +38,11 @@ const Blog = () => {
 
   return (
     <div className="blog-page mx-auto container flex flex-col items-center">
+       <Helmet>
+      <meta charSet="utf-8" />
+      <title>Blog - Life Stream Donate</title>
+
+      </Helmet>
       {filteredBlogs.length > 0 ? (
         <div>
           <h1 className="text-2xl font-bold mb-4">{currentBlog.title}</h1>

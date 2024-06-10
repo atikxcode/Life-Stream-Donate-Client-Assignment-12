@@ -4,17 +4,19 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useContext } from "react";
 import { AuthContext } from "../../Pages/Provider/AuthProvider";
-
+import useAxiosSecure from '../../hooks/useAxiosSecure'
+import { Helmet } from "react-helmet";
 const Dashboard = () => {
 
   const {user} = useContext(AuthContext);
 
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const {isError, error, isPending, data: allUsers} = useQuery({
     queryKey: ['allUsers'],
     queryFn: async () => {
-      const res = await axiosPublic.get('/user')
+      const res = await axiosSecure.get('/user')
       return res.data
     }
   })
@@ -39,7 +41,11 @@ const Dashboard = () => {
   return (
     <div className="flex ">
 
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>DashBoard - Life Stream Donate</title>
 
+        </Helmet>
       <div className="flex">
         
 
@@ -48,6 +54,7 @@ const Dashboard = () => {
   <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
   <div className="drawer-content flex flex-col items-center justify-center">
     {/* Page content here */}
+    
     
     <label htmlFor="my-drawer-2" className="btn bg-white text-black drawer-button lg:hidden"><FaBars></FaBars></label>
   

@@ -11,6 +11,7 @@ import { AuthContext } from '../../Pages/Provider/AuthProvider';
 import Swal from 'sweetalert2';
 import image3 from '../../assets/png-transparent-check-mark-icon-blocked-text-logo-social-media.png'
 import { FaRegSadTear } from "react-icons/fa";
+import { Helmet } from 'react-helmet';
 
 
 
@@ -124,6 +125,11 @@ const CreateDonationRequest = () => {
 
   return (
     <div className=''>
+      <Helmet>
+      <meta charSet="utf-8" />
+      <title>Create Donation Request - Life Stream Donate</title>
+
+      </Helmet>
 
     {
       currentUser?.status === 'active' ?  <div className='flex flex-col items-center gap-8 p-8 shadow-custom'>

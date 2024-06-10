@@ -5,6 +5,7 @@ import useAuth from '../../hooks/useAuth';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -109,9 +110,13 @@ const Profile = () => {
             showConfirmButton: false,
             timer: 1500
           });
+          refetch();
+         
 
           setDisabled(true)
-
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500)
         } 
       })
       .catch(error => {
@@ -125,6 +130,11 @@ const Profile = () => {
 
   return (
     <div className=' my-20 shadow-custom rounded-xl'>
+      <Helmet>
+      <meta charSet="utf-8" />
+      <title>Profile - Life Stream Donate</title>
+
+      </Helmet>
       {/* Form */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='flex p-4 justify-end'>

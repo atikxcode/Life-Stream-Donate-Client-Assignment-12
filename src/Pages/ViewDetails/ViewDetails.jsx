@@ -4,10 +4,12 @@ import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import useAxiosSecure from '../../hooks/useAxiosSecure'
 
 const ViewDetails = () => {
   const {user} = useContext(AuthContext)
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure()
   const donor = useLoaderData();
   // console.log(donor)
   const {_id, requestEmail, requestName, recipientName, recipientBloodgroup, recipientDistrict, recipientUpazila, hospital, recipientAddress, donationDate, donationTime, message} = donor;
@@ -31,7 +33,7 @@ const ViewDetails = () => {
 
     console.log(donationInfo)
 
-    axiosPublic.put(`/donationrequest/donor/${_id}`, donationInfo)
+    axiosSecure.put(`/donationrequest/donor/${_id}`, donationInfo)
     .then(res => {
       if(res.data.modifiedCount > 0){
         Swal.fire({

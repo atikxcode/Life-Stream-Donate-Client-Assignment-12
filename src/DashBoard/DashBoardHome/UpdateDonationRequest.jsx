@@ -8,6 +8,7 @@ import image from '../../assets/img-30-copyright.jpg'
 import DatePicker from "react-datepicker";
 import { FaRegSadTear } from 'react-icons/fa';
 import { useLoaderData } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 
 const UpdateDonationRequest = () => {
@@ -137,6 +138,11 @@ const UpdateDonationRequest = () => {
 
   return (
     <div className=''>
+      <Helmet>
+      <meta charSet="utf-8" />
+      <title>Update Donation Request - Life Stream Donate</title>
+
+      </Helmet>
 
     {
       currentUser?.status === 'active' ?  <div className='flex flex-col items-center gap-8 p-8 shadow-custom'>

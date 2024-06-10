@@ -4,6 +4,7 @@ import { AuthContext } from '../Provider/AuthProvider';
 import { useForm } from 'react-hook-form';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const PaymentComponent = ({ onPayment }) => {
   const { user } = useContext(AuthContext);
@@ -11,6 +12,7 @@ const PaymentComponent = ({ onPayment }) => {
   const elements = useElements();
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure()
   const [amount, setAmount] = useState('');
 
   const handleAmountChange = (e) => {
@@ -49,7 +51,7 @@ const PaymentComponent = ({ onPayment }) => {
       console.log(paymentData);
 
       try {
-        const response = await axiosPublic.post('/funding', paymentData);
+        const response = await axiosSecure.post('/funding', paymentData);
         console.log(response.data);
         onPayment(result.paymentMethod, data.amount);
         

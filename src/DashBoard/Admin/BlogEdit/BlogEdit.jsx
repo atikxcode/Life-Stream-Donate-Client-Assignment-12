@@ -5,6 +5,7 @@ import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import JoditEditor from 'jodit-react';
 import Swal from 'sweetalert2';
 import { useLoaderData } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -81,6 +82,14 @@ const BlogEdit = () => {
 
   return (
     <div>
+
+
+      <Helmet>
+      <meta charSet="utf-8" />
+      <title>Blog Edit - Life Stream Donate</title>
+
+      </Helmet>
+
       <div className='my-10 flex justify-center'>
         <h2 className='text-4xl'>Post A Blog</h2>
       </div>

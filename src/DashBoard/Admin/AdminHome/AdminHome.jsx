@@ -3,6 +3,7 @@ import { AuthContext } from '../../../Pages/Provider/AuthProvider';
 import { FaUsers, FaMoneyBillAlt, FaHandsHelping } from "react-icons/fa";
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import { Helmet } from 'react-helmet';
 
 const AdminHome = () => {
   const {user} = useContext(AuthContext)
@@ -36,7 +37,7 @@ const AdminHome = () => {
     return <div className="mx-auto container flex justify-center"><span className="loading loading-dots loading-lg"></span></div>;
   }
 
-  const donor = users.filter(users => users.role === 'donor');
+  const donor = users?.filter(users => users.role === 'donor');
   
   const totalAmount = fundings?.reduce((accumulator, funding) => {
     return accumulator + funding.amount;
@@ -53,6 +54,13 @@ const AdminHome = () => {
 
   return (
     <div>
+
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Admin Dashboard - Life Stream Donate</title>
+
+      </Helmet>
+
       <div className=' flex flex-col my-10 items-center gap-10 justify-center'>
         <h2 className='text-6xl'>Welcome, {user?.displayName}!</h2>
         <p className='text-2xl'>Overview</p>

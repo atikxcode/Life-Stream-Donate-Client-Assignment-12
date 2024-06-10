@@ -26,7 +26,7 @@ const NavBar = () => {
   };
 
   const [typeEffect] = useTypewriter({
-    words: ['TrekTales'],
+    words: ['Life Stream Donate'],
     loop: {},
     typeSpeed: 110,
     deleteSpeed: 40
@@ -80,12 +80,12 @@ const NavBar = () => {
        {navLinks}
      </ul>
    </div>
- {/* <Link to='/'>
+ <Link to='/'>
  <div className="flex items-center gap-4">
-  <img className="h-[60px] w-[60px] rounded-[50%] hidden md:block lg:block xl:block"  alt="" />
-   <h2 className="font-bold  md:text-2xl lg:text-xl xl:text-xl text-orange-400 ">CareerCanvas</h2>
+  {/* <img className="h-[60px] w-[60px] rounded-[50%] hidden md:block lg:block xl:block"  alt="" /> */}
+   <h2 className="font-bold  md:text-2xl lg:text-xl xl:text-xl text-red-600 ">{typeEffect}</h2>
   </div>
- </Link> */}
+ </Link>
  </div>
  <div className="navbar-center hidden lg:flex ">
  <ul className=" menu menu-horizontal px-1 font-semibold text-white ">

@@ -4,23 +4,26 @@ import { useQuery } from '@tanstack/react-query';
 import PaymentComponent from '../Payment/PaymentComponent';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet';
 
 const stripePromise = loadStripe('pk_test_51PPvXCRr6UQJE1JCfynZR5iP9gDrW49XALtyYPUgXRbTzd1TzaC92CmkOWfAGKwEPXYdLzABIHKkPy805mcyYHgm00qXqbVYfn');
 const Funding = () => {
 
   const axiosPublic = useAxiosPublic()
+  const axiosSecure = useAxiosSecure();
   const [showPayment, setShowPayment] = useState(false);
 
-  const { isPending, isError, error, data: fundings } = useQuery({
+  const { isPending, isError, error, refetch, data: fundings } = useQuery({
     queryKey: ['fundings'],
     queryFn: async () => {
-      const res = await axiosPublic.get('/funding');
+      const res = await axiosSecure.get('/funding');
       return res.data;
     }
   });
 
   const handleGiveFundClick = () => {
-    setShowPayment(true);
+    setShowPayment(!showPayment);
   };
 
   const handlePayment = (paymentMethod) => {
@@ -38,10 +41,18 @@ const Funding = () => {
     return <p>Error: {error.message}</p>;
   }
 
+  refetch();
 
 
   return (
     <div className='min-h-screen my-20 mx-auto container'>
+
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Funding - Life Stream Donate</title>
+
+      </Helmet>
+
       <div className='my-20 flex justify-end'>
         <button className='btn' onClick={handleGiveFundClick}>Give Fund</button>
       </div>
@@ -52,6 +63,10 @@ const Funding = () => {
           </Elements>
         </div>
       )}
+
+      <div className='flex justify-center my-16'>
+        <h2 className='text-3xl font-semibold'><span className='font-bold'>Wall of Gratitude:</span> Our Generous Contributors</h2>
+      </div>
 
       {
         fundings.map(funding => 

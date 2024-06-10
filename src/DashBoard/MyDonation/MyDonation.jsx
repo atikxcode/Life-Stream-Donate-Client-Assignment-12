@@ -6,6 +6,7 @@ import { FaRegSadTear } from "react-icons/fa";
 import Aos from "aos";
 import 'aos/dist/aos.css'
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const MyDonation = () => {
   const axiosPublic = useAxiosPublic();
@@ -54,7 +55,7 @@ const MyDonation = () => {
   const filteredDonation = donationRequest?.filter(request => request?.requestEmail === user?.email) || [];
   const currentUser = users?.filter(users => users?.email === user?.email) || [];
 
-  const filteredAndStatusDonation = filteredDonation.filter(donation => {
+  const filteredAndStatusDonation = filteredDonation?.filter(donation => {
     if (statusFilter === 'all') {
       return true;
     }
@@ -94,6 +95,11 @@ const MyDonation = () => {
 
   return (
     <div>
+      <Helmet>
+      <meta charSet="utf-8" />
+      <title>My Donation Request - Life Stream Donate</title>
+
+      </Helmet>
       <div className="flex flex-col gap-20">
         <div className="flex justify-center">
           <h2 className="text-4xl text-semibold">Here is all of your Donation Requests</h2>

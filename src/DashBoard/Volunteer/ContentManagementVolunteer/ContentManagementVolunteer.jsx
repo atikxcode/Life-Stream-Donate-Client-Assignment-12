@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import 'aos/dist/aos.css'
 import Aos from "aos";
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const ContentManagementVolunteer = () => {
 
@@ -44,13 +45,18 @@ const ContentManagementVolunteer = () => {
 
 
 
-  const filteredBlogs = statusFilter === 'all' ? blogs : blogs.filter(blog => blog.status === statusFilter);
+  const filteredBlogs = statusFilter === 'all' ? blogs : blogs?.filter(blog => blog?.status === statusFilter);
 
 
 
   return (
     <div>
 
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Content Management - Life Stream Donate</title>
+
+      </Helmet>
      <div className='flex justify-between my-10 '>
      <h2 className='text-2xl'>Add A New Blog</h2>
      <Link to='/dashboard/addblogs'><button className='btn'>Add Blogs</button></Link>
@@ -74,7 +80,7 @@ const ContentManagementVolunteer = () => {
 
      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-16 items-center'>
      {
-      filteredBlogs.map(blog => 
+      filteredBlogs?.map(blog => 
       <div key={blog._id} data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500" >
         <div className="mx-auto hover:scale-110 duration-1000 transition-all bg-[#1b1b1b] w-[90%] xl:w-[450px]">
         <img className=" h-[350px] w-full" src={blog?.image} alt="" />

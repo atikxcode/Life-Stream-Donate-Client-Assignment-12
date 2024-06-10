@@ -6,6 +6,7 @@ import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { AuthContext } from '../../../Pages/Provider/AuthProvider';
 import { FaRegSadTear } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const AllBloodDonationRequest = () => {
 
@@ -64,7 +65,7 @@ console.log(allUsers)
 
 
 
-const filteredAndStatusDonation = donationRequest.filter(donation => {
+const filteredAndStatusDonation = donationRequest?.filter(donation => {
   if (statusFilter === 'all') {
     return true;
   }
@@ -114,6 +115,11 @@ const updateDonationStatus = (id, stat) => {
 
   return (
     <div>
+      <Helmet>
+      <meta charSet="utf-8" />
+      <title>All Blood Donation Request - Life Stream Donate</title>
+
+      </Helmet>
      <div>
       <div className="flex flex-col gap-20">
         <div className="flex justify-center">
@@ -140,7 +146,7 @@ const updateDonationStatus = (id, stat) => {
           {filteredAndStatusDonation.length > 0 && (
             filteredAndStatusDonation.map(donation => (
               
-              <div className="overflow-x-auto shadow-custom mb-9 rounded-2xl" key={donation._id}>
+              <div className="overflow-x-auto shadow-custom mb-9 rounded-2xl" key={donation?._id}>
                 <table className="table w-full mb-8">
                   <thead>
                     <tr>
@@ -172,14 +178,14 @@ const updateDonationStatus = (id, stat) => {
                             </div> */}
                           </div>
                           <div className=' w-full'>
-                            <div className="font-bold">{donation.requestName}</div>
-                            <div className="text-sm opacity-50">{donation.requestEmail}</div>
+                            <div className="font-bold">{donation?.requestName}</div>
+                            <div className="text-sm opacity-50">{donation?.requestEmail}</div>
                           </div>
                         </div>
                       </td>
-                      <td className='text-center' >{donation.recipientName}</td>
-                      <td className='text-center'>{donation.recipientUpazila}, {donation.recipientDistrict}</td>
-                      <td className='text-center'>{donation.recipientBloodgroup}</td>
+                      <td className='text-center' >{donation?.recipientName}</td>
+                      <td className='text-center'>{donation?.recipientUpazila}, {donation?.recipientDistrict}</td>
+                      <td className='text-center'>{donation?.recipientBloodgroup}</td>
                       {
                           donation?.status === 'inprogress' &&(
                            <td className='text-center'>
@@ -192,7 +198,7 @@ const updateDonationStatus = (id, stat) => {
                         }
                       <td className='text-center'>
                       {
-                        donation?.status === 'inprogress' ? (<td className='items-center'><div className='flex gap-4'><button className='btn' onClick={() => updateDonationStatus(donation._id, 'done')}>Done</button><button className='btn' onClick={() => updateDonationStatus(donation._id, 'canceled')}>Cancel</button></div></td>) : (<td>{donation.status}</td>) 
+                        donation?.status === 'inprogress' ? (<td className='items-center'><div className='flex gap-4'><button className='btn' onClick={() => updateDonationStatus(donation?._id, 'done')}>Done</button><button className='btn' onClick={() => updateDonationStatus(donation?._id, 'canceled')}>Cancel</button></div></td>) : (<td>{donation.status}</td>) 
                       }
                       </td>
                       <td>
