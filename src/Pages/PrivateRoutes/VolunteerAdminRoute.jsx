@@ -18,6 +18,11 @@ const VolunteerAdminRoute = ({ children }) => {
     }
   });
 
+  const admin = userRoles?.find(admin => admin.role === 'admin')
+  const volunteer = userRoles?.find(volunteer => volunteer.role === 'volunteer')
+  const isAdmin = user?.email === admin?.email;
+  const isVolunteer = user?.email === volunteer?.email;
+  
   if (isPending || loading) {
     return (
       <div className="mx-auto container flex justify-center">
@@ -31,12 +36,8 @@ const VolunteerAdminRoute = ({ children }) => {
   }
 
   // Check if user is logged in and has volunteer or admin role
-  if (user && userRoles) {
-    const isAdminOrVolunteer = userRoles.some(role => role === "admin" || role === "volunteer");
-
-    if (isAdminOrVolunteer) {
-      return children;
-    }
+  if(user && isAdmin && isVolunteer){
+    return children;
   }
 
   // Redirect to login if user is not a volunteer or admin
